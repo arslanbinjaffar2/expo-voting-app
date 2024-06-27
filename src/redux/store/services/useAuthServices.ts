@@ -21,7 +21,8 @@ export type EventServiceOperators = {
     verification: (payload: VerificationPayload) => void
     loadProvider: (payload: LoadProviderPayload) => void
     // getUser: () => void
-    // logout: () => void
+    logout: () => void
+    clearToken:()=>void
     // loadToken: (logged: boolean) => void
 }
 
@@ -80,14 +81,14 @@ export const UseAuthService = (): Readonly<EventServiceOperators> => {
         //     },
         //     [dispatch],
         // ),
-        // logout: useCallback(
-        //     () => {
-        //         dispatch(
-        //             AuthActions.logout(),
-        //         )
-        //     },
-        //     [dispatch],
-        // ),
+        logout: useCallback(
+            () => {
+                dispatch(
+                    AuthActions.logout(),
+                )
+            },
+            [dispatch],
+        ),
         // loadToken: useCallback(
         //     (logged: boolean) => {
         //         dispatch(
@@ -96,6 +97,15 @@ export const UseAuthService = (): Readonly<EventServiceOperators> => {
         //     },
         //     [dispatch],
         // ),
+        clearToken: useCallback(
+            () => {
+                dispatch(
+                    AuthActions.clearToken(),
+                )
+            },
+            [dispatch],
+        ),
+        
     }
 }
 

@@ -7,6 +7,9 @@ import { combineReducers } from 'redux';
 import EnvSlice from './slices/Env.Slice';
 import AuthSlice from './slices/Auth.Slice';
 import EventSlice from './slices/Event.Slice';
+import LoadingSlice from './slices/Loading.Slice';
+import SessionSlice from './slices/Session.Slice';
+
 
 import { RootSaga } from './sagas/Root';
 
@@ -19,6 +22,8 @@ const rootReducer = combineReducers({
     env: EnvSlice,
     auth: AuthSlice,
     event: EventSlice,
+    loading:LoadingSlice,
+    session:SessionSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

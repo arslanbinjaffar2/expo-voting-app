@@ -10,6 +10,7 @@ import { LoginPayload, AuthActions } from '../slices/Auth.Slice';
 import { HttpResponse } from '../../../utils/GeneralResponse'
 
 import { select } from 'redux-saga/effects';
+import { LoadingActions } from '../slices/Loading.slice';
 
 // Worker Sagas handlers
 function* OnLogin({
@@ -19,6 +20,7 @@ function* OnLogin({
     payload: LoginPayload
 }): SagaIterator {
     try {
+        yield put(LoadingActions.addProcess({ process: 'login-attendee' }))
         const state = yield select(state => state);
         const response: HttpResponse = yield call(getLoginApi, payload, state);
         if (response.data.success) {
@@ -26,7 +28,9 @@ function* OnLogin({
         } else {
             yield put(AuthActions.failed(response.data.message!));
         }
+        yield put(LoadingActions.removeProcess({ process: 'login-attendee' }))
     } catch (error: any) {
+        yield put(LoadingActions.removeProcess({ process: 'login-attendee' }))
         yield put(AuthActions.failed(error.message));
     }
 }

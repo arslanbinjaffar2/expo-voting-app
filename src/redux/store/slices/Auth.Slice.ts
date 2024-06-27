@@ -133,9 +133,9 @@ export const AuthActions = {
     // getUser: AuthSlice.actions.getUser,
     success: AuthSlice.actions.success,
     failed: AuthSlice.actions.failed,
-//     logout: AuthSlice.actions.logout,
-//     loadToken: AuthSlice.actions.loadToken,
-//     clearToken: AuthSlice.actions.clearToken,
+    logout: AuthSlice.actions.logout,
+    loadToken: AuthSlice.actions.loadToken,
+    clearToken: AuthSlice.actions.clearToken,
 //     reloadPage: AuthSlice.actions.reloadPage,
  }
 

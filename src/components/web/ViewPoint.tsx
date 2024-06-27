@@ -5,14 +5,17 @@ import LOGO from '../../assets/img/logo.svg';
 import NEM from '../../assets/img/nem.svg';
 import CROSS from '../../assets/img/cross.svg';
 import SUCCESS from '../../assets/img/success.svg';
-import useAuthServices from '../../redux/store/services/useAuthServices';
-import useEventServices from '../../redux/store/services/useEventServices';
-import UseEnvServices from '../../redux/store/services/useEnvServices';
+
+
 import {useNavigate} from 'react-router-dom'
+import useAuthServices from '../../redux/store/services/useAuthServices';
+import useSessionServices from '../../redux/store/services/useSessionServices';
 
 const ViewPoint = () => {
   const navigate=useNavigate()
-  const {login,response}=useAuthServices()
+  const {clearToken}=useAuthServices()
+  // const {expireTime,setAddMoreExpireTime,setcheckExpireTime}=useSessionServices()
+  const [remainTime,setRemainTime]=useState(59)
   const [step, setStep] = useState(1);
   const [screen, setScreen] = useState(4);
   const [vote, setVote] = useState('');
@@ -24,14 +27,22 @@ const ViewPoint = () => {
     setVote(voted);
     setScreen(2);
   };
-  const event_url="annual-convocation-3961"
-  const { FetchEvent, event } = useEventServices()
-  const {  _env } = UseEnvServices()
   useEffect(() => {
-    if (event_url !== undefined && _env.api_base_url) {
-        FetchEvent(event_url)
-    }
-  }, [FetchEvent, event_url, _env.api_base_url])
+    // setcheckExpireTime(59)
+    let time = setInterval(() => {
+      setRemainTime((prev) => {
+        if (prev > 0) {
+          return prev - 1;
+        } else {
+          clearToken()
+          clearInterval(time);
+          return prev;
+        }
+      });
+    }, 1000);
+  
+    return () => clearInterval(time);
+  }, []);
   
   return (
     <React.Fragment>
@@ -92,11 +103,13 @@ const ViewPoint = () => {
             <span onClick={() => setScreen(1)} className="btnCancel"><img style={{width: '20px', height: '20px'}} alt="" src={CROSS} /></span>
           </header>
           <div className="eb-databoxy">
-            <div className="eb-expiretime">Your session will expires in <span id="timeExpire">0:59</span></div>
+            <div className="eb-expiretime">Your session will expires in <span id="timeExpire">0:{remainTime}</span></div>
           </div>
           <div className="buttonPanel">
-            <span className="btnCancel"  onClick={() => setScreen(1)}>Cancel</span>
-            <button onClick={() => setScreen(3)} className="button">
+            <span className="btnCancel"  onClick={() => setScreen(1)} >Cancel</span>
+            <button onClick={() => {
+              setRemainTime((prev)=>prev+5)
+            }} className="button">
               <span style={{fontSize: '15px', color: '#fff', marginRight: 10,fontWeight: '700'}}>Give me more time</span>
             </button>
           </div>

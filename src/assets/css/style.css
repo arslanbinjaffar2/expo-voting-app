@@ -203,8 +203,27 @@ button {
   font-size: 14px;
   font-weight: 700;
   margin-right: 35px;
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
   text-decoration: underline;
   cursor: pointer;
+  cursor: pointer;
+  opacity: 1;
+  background-color: #a8bfd8;
+  border-color: #a2b4c7;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 4px;
+  opacity: 0.9;
+}
+.buttonPanel .btnCancel:hover {
+  opacity: 1;
 }
 .eb-confirmation-box {
   border-radius: 5px;

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {arrowRightIcon,chevronIcon,crossIcon,logoIcon,nemIcon,successIcon} from '../../../assets/img/index'
 import useAuthServices from '../../../redux/store/services/useAuthServices';
-import {useNavigate} from 'react-router-dom'
+import {Navigate, useNavigate} from 'react-router-dom'
 import Verification from '../Verification';
 import VoteView from '../VoteView';
 import { Input } from '@rneui/base';
-
+import in_array from 'in_array'
+import UseLoadingService from '../../../redux/store/services/useLoadingServices';
+import {DotLoader} from 'react-spinners'
 const ViewPoint = () => {
   const navigate=useNavigate()
   const [step, setStep] = useState(1);
@@ -19,14 +21,7 @@ const ViewPoint = () => {
     setVote(voted);
     setScreen(2);
   };
-  const event_url="annual-convocation-3961"
-//   const { FetchEvent, event } = useEventServices()
-//   const {  _env } = UseEnvServices()
-//   useEffect(() => {
-//     if (event_url !== undefined && _env.api_base_url) {
-//         FetchEvent(event_url)
-//     }
-//   }, [FetchEvent, event_url, _env.api_base_url])
+
   
   return (
     <React.Fragment>
@@ -66,9 +61,15 @@ export default ViewPoint;
 
 function LoginForm({props}:any){
 
-  const {login,response}=useAuthServices()
+  const {login,response,isLoggedIn}=useAuthServices()
+  const {processing}=UseLoadingService()
    const [formData,setFormData]=useState({email:"",password:""})
-
+   const handleLogIn=()=>{
+    login(formData)
+   }
+    if(response.success && isLoggedIn){
+        return  <Navigate to="/" replace />;
+   }
   return (
     <div className="verificationArea">
       <h4>Type your Email and password </h4>
@@ -97,9 +98,16 @@ function LoginForm({props}:any){
         {/* <div className="infoBox">Type your election code sent to you by message or email</div> */}
       </div>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <button className="button" onClick={() => login(formData)}>
-          <span style={{ fontSize: '15px', color: '#fff', marginRight: 10, fontWeight: '700' }}>Login</span>
+        <button className="button" onClick={handleLogIn}>
+          {!in_array('login-attendee',processing) ?
+          <>
+           <span style={{ fontSize: '15px', color: '#fff', marginRight: 10, fontWeight: '700' }}>Login</span>
           <img style={{ width: '16px', height: '10px' }} alt="" src={arrowRightIcon} />
+          </>
+        :<>
+        <DotLoader size={'30px'}/>
+        </>
+    }
         </button>
         
       </div>

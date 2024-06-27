@@ -4,27 +4,34 @@ import { Router, Routes, Route } from './routing.web';
 import Home from './src/components/Home';
 import Login from './src/components/web/auth/Login'
 const image = { uri: "https://picsum.photos/3500"};
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
+import {Provider} from './src/Provider'
 import {store,persistor} from './src/redux/store/Index'
 import { PersistGate } from 'redux-persist/integration/react'
+import ProtectedRoute from './ProtectedRoute'
 function App () {
   const [selectedPokemon,setSelectedPokemon]=useState(null) 
     return (
-      <Provider store={store}>
-         <PersistGate loading={null} persistor={persistor}>
-
+      <ReduxProvider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+      <Provider>
       <View style={styles.container}>
         <ImageBackground style={styles.banner} source={image}>
         <Router>
             <Routes>
-              <Route path="/" element={<Home  />} />
               <Route path='login' element={<Login/>}/>
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <Home/>
+                </ProtectedRoute>
+              }/>
             </Routes>
           </Router>
         </ImageBackground>
       </View>
+        </Provider>
         </PersistGate>
-      </Provider>
+      </ReduxProvider>
 
     );
 }
