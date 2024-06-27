@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../Hooks'
 export type EventServiceOperators = {
     event: Event
     FetchEvent: (slug: string) => void
- 
+    FetchEventByCode: (code: string) => void
 }
 
 /**
@@ -25,6 +25,12 @@ export const UseEventService = (): Readonly<EventServiceOperators> => {
         FetchEvent: useCallback(
             (slug: string) => {
                 dispatch(EventActions.FetchEvent(slug))
+            },
+            [dispatch],
+        ),
+        FetchEventByCode: useCallback(
+            (code: string) => {
+                dispatch(EventActions.FetchEventByCode(code))
             },
             [dispatch],
         ),

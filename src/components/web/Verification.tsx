@@ -1,5 +1,5 @@
 import React, { Component,forwardRef } from 'react';
-import ARROW from '../../assets/img/arrow-right.svg';
+import {arrowRightIcon} from '../../assets/img';
 import DatePicker from "react-datepicker";
 
 export default class Verification extends Component {
@@ -40,7 +40,7 @@ export default class Verification extends Component {
           <div style={{display: 'flex', justifyContent: 'flex-end'}}>
             <button className="button" onClick={() => this.props.click(2)}>
               <span style={{fontSize: '15px', color: '#fff', marginRight: 10,fontWeight: '700'}}>Go To Ballot</span>
-              <img style={{width: '16px', height: '10px'}} alt="" src={ARROW} />
+              <img style={{width: '16px', height: '10px'}} alt="" src={arrowRightIcon} />
             </button>
           </div>
       </div>

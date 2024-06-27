@@ -8,9 +8,10 @@ import SUCCESS from '../../assets/img/success.svg';
 import useAuthServices from '../../redux/store/services/useAuthServices';
 import useEventServices from '../../redux/store/services/useEventServices';
 import UseEnvServices from '../../redux/store/services/useEnvServices';
-
+import {useNavigate} from 'react-router-dom'
 
 const ViewPoint = () => {
+  const navigate=useNavigate()
   const {login,response}=useAuthServices()
   const [step, setStep] = useState(1);
   const [screen, setScreen] = useState(4);
@@ -23,18 +24,15 @@ const ViewPoint = () => {
     setVote(voted);
     setScreen(2);
   };
-  const event_url=""
+  const event_url="annual-convocation-3961"
   const { FetchEvent, event } = useEventServices()
-  const { updateEnv, _env } = UseEnvServices()
+  const {  _env } = UseEnvServices()
   useEffect(() => {
     if (event_url !== undefined && _env.api_base_url) {
         FetchEvent(event_url)
     }
-}, [FetchEvent, event_url, _env.api_base_url])
-
-useEffect(() => {
-    updateEnv(env);
-}, [])
+  }, [FetchEvent, event_url, _env.api_base_url])
+  
   return (
     <React.Fragment>
       {screen === 1 && (
@@ -42,7 +40,7 @@ useEffect(() => {
           <div className="leftContainer">
             <img className="viewpointLogo" alt="" src={LOGO}/>
             <h2 className="heading">ELECTION OK21</h2>
-            <button className="button">
+            <button className="button" onClick={()=>navigate('/login')}>
               <span style={{fontSize: '15px', color: '#fff', marginRight: 6,fontWeight: '400'}}>Vote with</span>
               <img style={{width: '56px', height: '12px'}} alt="" src={NEM} />
             </button>

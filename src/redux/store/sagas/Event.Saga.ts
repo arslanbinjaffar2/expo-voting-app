@@ -5,7 +5,7 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import { select } from 'redux-saga/effects';
 import { EventActions } from '../slices/Event.Slice';
 import { HttpResponse } from '../../../utils/GeneralResponse';
-import { getEventApi } from '../api/Event.Api';
+import { getEventApi, getEventByCodeApi } from '../api/Event.Api';
 
 function* OnGetEvent({
     payload,
@@ -18,24 +18,20 @@ function* OnGetEvent({
     yield put(EventActions.update(response.data.data.event!))
 }
 
-// function* OnGetEventByCode({
-//     payload,
-// }: {
-//     type: typeof EventActions.FetchEventByCode
-//     payload: string
-// }): SagaIterator {
-//     yield put(LoadingActions.set(true))
-//     const env = yield select(state => state);
-//     const response: HttpResponse = yield call(getEventByCodeApi, payload, env);
-//     if (response.data.success) {
-//         yield put(EventActions.update(response.data.data.event!));
-//         yield put(ErrorActions.message(''));
-//     } else {
-//         yield put(ErrorActions.message(response.data.error!));
-//         yield put(EventActions.update({}));
-//     }
-//     yield put(LoadingActions.set(false))
-// }
+function* OnGetEventByCode({
+    payload,
+}: {
+    type: typeof EventActions.FetchEventByCode
+    payload: string
+}): SagaIterator {
+    const env = yield select(state => state);
+    const response: HttpResponse = yield call(getEventByCodeApi, payload, env);
+    if (response.data.success) {
+        yield put(EventActions.update(response.data.data.event!));
+    } else {
+        yield put(EventActions.update({}));
+    }
+}
 
 // function* OnGetModules({
 //     payload,
@@ -106,6 +102,7 @@ function* OnGetEvent({
 // Watcher Saga
 export function* EventWatcherSaga(): SagaIterator {
     yield takeEvery(EventActions.FetchEvent.type, OnGetEvent as any)
+    yield takeEvery(EventActions.FetchEventByCode.type, OnGetEventByCode as any)
     // yield takeEvery(EventActions.FetchEventByCode.type, OnGetEventByCode)
     // yield takeEvery(EventActions.loadModules.type, OnGetModules)
     // yield takeEvery(EventActions.loadSettingsModules.type, OnGetSettingModules)

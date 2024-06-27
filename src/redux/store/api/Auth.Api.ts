@@ -7,7 +7,7 @@ import { HttpResponse } from "../../../utils/GeneralResponse";
 const EventBaseUrl = `/event`
 
 export const getLoginApi = (payload: LoginPayload, state: any): Promise<HttpResponse> => {
-    return makeApi(`${state?.env?.api_base_url}`).post(`${EventBaseUrl}/${state?.event?.event.url}/auth/login`, payload);
+    return makeApi(`${state?.env?.eventcenter_base_url}`).post(`${EventBaseUrl}/${state?.event?.event.url}/auth/login`, payload);
 }
 
 // export const getUserApi = (state: any): Promise<HttpResponse> => {

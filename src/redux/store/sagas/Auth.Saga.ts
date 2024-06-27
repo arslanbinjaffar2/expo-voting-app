@@ -2,7 +2,7 @@ import { SagaIterator } from '@redux-saga/core'
 
 import { call, put, takeEvery } from 'redux-saga/effects'
 
-import { getLoginApi } from '../api/auth.Api';
+import { getLoginApi } from '../api/Auth.Api';
 
 import { LoginPayload, AuthActions } from '../slices/Auth.Slice';
 

@@ -20,6 +20,7 @@ export const EventSlice = createSlice({
     initialState,
     reducers: {
         FetchEvent(state, action: PayloadAction<string>) { },
+        FetchEventByCode(state, action: PayloadAction<string>) { },
         update(state, action: PayloadAction<any>) {
             state.event = action.payload;
             if(action.payload.id !== undefined) {
@@ -34,6 +35,7 @@ export const EventSlice = createSlice({
 // Actions
 export const EventActions = {
     FetchEvent: EventSlice.actions.FetchEvent,
+    FetchEventByCode: EventSlice.actions.FetchEventByCode,
     update: EventSlice.actions.update,
    
 }

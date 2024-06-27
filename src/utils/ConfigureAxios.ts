@@ -48,6 +48,5 @@ export default function makeApi(baseURL: string, multiPartFormData = false) {
             return responseData;
         }
     )
-
     return api
 }
