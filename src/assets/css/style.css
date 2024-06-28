@@ -1,3 +1,4 @@
+
 * {
   padding: 0;
   margin: 0;
@@ -320,4 +321,61 @@ button {
 }
 .eb-expiretime span {
   color: #FF0000;
+}
+
+
+
+
+/* media screen mobile responsive */
+@media  screen and (max-width:767px) {
+  .viewpoint {
+    flex-direction: column;
+  }
+  .leftContainer {
+    width: 90%;
+    padding: 20px;
+    min-height: 300px;
+}
+
+.rightContainer {
+  width: 90%;
+    padding: 20px;
+}
+input{
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+.eb-confirmation-box {
+  width: 90%;
+}
+.eb-confirmation-box .eb-header h3 {
+  font-size: 25px;
+}
+.eb-confirmation-box .eb-header {
+  padding: 20px;
+}
+.eb-confirmation-box .eb-databoxy {
+  padding: 20px;
+  min-height: 100px;
+}
+.eb-confirmation-box .buttonPanel {
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 0;
+  padding-bottom: 20px;
+}
+.eb-thankyou {
+  width: 90%; 
+  min-height: 480px;
+}
+.eb-thankyou h3 {
+  font-size: 24px;
+  text-align: center;
+}
+.eb-thankyou p {
+  width: 90%;
+  word-break: break-word;
+  text-align: center;
+}
+
 }

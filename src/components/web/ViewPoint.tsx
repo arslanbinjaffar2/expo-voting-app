@@ -15,7 +15,7 @@ const ViewPoint = () => {
   const navigate=useNavigate()
   const {clearToken}=useAuthServices()
   // const {expireTime,setAddMoreExpireTime,setcheckExpireTime}=useSessionServices()
-  const [remainTime,setRemainTime]=useState(59)
+  const [remainTime,setRemainTime]=useState(11159)
   const [step, setStep] = useState(1);
   const [screen, setScreen] = useState(4);
   const [vote, setVote] = useState('');
@@ -28,13 +28,12 @@ const ViewPoint = () => {
     setScreen(2);
   };
   useEffect(() => {
-    // setcheckExpireTime(59)
-    let time = setInterval(() => {
+    const time = setInterval(() => {
       setRemainTime((prev) => {
         if (prev > 0) {
           return prev - 1;
         } else {
-          clearToken()
+          clearToken();
           clearInterval(time);
           return prev;
         }
@@ -42,7 +41,7 @@ const ViewPoint = () => {
     }, 1000);
   
     return () => clearInterval(time);
-  }, []);
+  }, []); // Note the empty dependency array
   
   return (
     <React.Fragment>
@@ -63,7 +62,8 @@ const ViewPoint = () => {
               <Verification click={() => handlePress(1)} />
             }
             {step === 2 && 
-              <VoteView vote={(voted:any) => handleVote(voted)} click={() => handlePress(2)} />
+              <VoteView vote={(voted:any) => handleVote(voted)} click={() => handlePress(2)} 
+              />
             }
           </div>
         </div>

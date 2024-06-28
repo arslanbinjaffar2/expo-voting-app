@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {crossIcon,chevronIcon} from '../../assets/img';
 
-const VoteView = () => {
+const VoteView = (props:any) => {
   const [vote, setVote] = useState('');
 
   const handleVote = (vote) => () => {
