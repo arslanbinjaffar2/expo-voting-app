@@ -34,7 +34,6 @@ export const Provider = () => {
       }
     }, [FetchEvent, eventId, _env.api_base_url])
     const image = { uri: `${_env.eventcenter_base_url}/assets/event/app_background/${event?.settings?.app_background_image}`};
-    console.log(image,"image")
   return (
     <NativeBaseProvider>
       <ToastContainer/>

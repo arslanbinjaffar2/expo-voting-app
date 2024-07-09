@@ -64,7 +64,7 @@ const SessionTimer = React.memo(() => {
 
   const onEnd = () => {
     // window.open(`https://www.hk.dk/omhk/sektor/kommunal/ok21`, '_blank');
-    navigate(`/${event.name}/survey`)
+    navigate(`/${event.url}/survey`)
   }
 
   return (

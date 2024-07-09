@@ -69,7 +69,7 @@ const NativeBaseProvider = ({ children }: { children: React.ReactNode }) => {
         },
       });
     return (   
-        <Provider config={config}>
+        <Provider config={config} theme={theme}>
             {children}
         </Provider>
     );

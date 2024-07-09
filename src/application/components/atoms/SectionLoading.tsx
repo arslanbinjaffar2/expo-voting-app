@@ -9,7 +9,7 @@ const SectionLoading = ({ h }: Props) => {
     return (
         <Center alignItems={'center'} justifyContent={'center'} w={'100%'}>
             <HStack space={3} alignItems="center" h={h ? h : '500px'}>
-                <Spinner size={'sm'} color="black" accessibilityLabel="Loading posts" />
+                <Spinner size={'sm'} color="primary.text" accessibilityLabel="Loading posts" />
                 <Heading color="primary.text" ml={1} fontSize="lg">
                     Loading
                 </Heading>
