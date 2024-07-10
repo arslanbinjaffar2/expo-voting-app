@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { logoIcon, nemIcon,successIcon } from '../../../../assets/img/index';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Box, Container, HStack, Icon, Spacer, Text, VStack, Divider, Button, Pressable, Image, Spinner, View, Modal } from 'native-base'
 import UseSurveyService from '../../../redux/store/services/useSurveyServices';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons'
@@ -18,6 +18,8 @@ import OpenQuestionAnswer from '../../atoms/surveys/questions/OpenQuestionAnswer
 import NumberAnswer from '../../atoms/surveys/questions/NumberAnswer';
 import WordCloudAnswer from '../../atoms/surveys/questions/WordCloudAnswer';
 import SectionLoading from '../../atoms/SectionLoading';
+import DateAnswer from '../../atoms/surveys/questions/DateAnswer';
+import DateTimeAnswer from '../../atoms/surveys/questions/DateTimeAnswer';
 
 const SurveyId = () => {
 
@@ -41,7 +43,7 @@ const SurveyId = () => {
 
 export default SurveyId;
 const SessionTimer = React.memo(() => {
-  const [timeLeft, setTimeLeft] = useState<number>(59);
+  const [timeLeft, setTimeLeft] = useState<number>(10000);
   const navigate= useNavigate();
   const {event} = UseEventService();
   const { survey_labels } = UseSurveyService();
@@ -68,17 +70,17 @@ const SessionTimer = React.memo(() => {
   }
 
   return (
-    <>
-    <View bg={'#00000040'} width={'70%'} flexDirection={'row'} ml={'auto'} height={60} rounded={'md'} justifyContent={'center'} alignItems={'center'}>
-              <Text fontSize={'md'} >Your session will expires in </Text>
-              <Text fontSize={'lg'} fontWeight={'bold'} mx={2}>
+    <Box width={'100%'} flexDirection={'row'} justifyContent={'center'} alignItems={'center'}>
+    <View bg={'#00000040'} width={'100%'}  height={50} rounded={'md'} flexDirection={'row'} justifyContent={'flex-start'} alignItems={'center'} pl={'18px'}>
+              <Text fontSize={'sm'} fontWeight={'normal'}>Your session will expires in </Text>
+              <Text fontSize={'md'} fontWeight={'bold'} ml={1} mr={4}>
               {timeLeft} 
               </Text>
               <Pressable onPress={()=>handleRequestTime()}>
-                <Text fontSize={'lg'} fontWeight={'bold'} underline>Request more time</Text>
+                <Text fontSize={'sm'} fontWeight={'medium'} underline>Request more time</Text>
                 </Pressable>
             </View>
-    </>
+    </Box>
   );
 });
 
@@ -171,14 +173,14 @@ function SurveyDetail (){
         if(Number(activeQuestion?.required_question) === 1 || (formData[activeQuestion?.id!] !== undefined &&  formData[activeQuestion?.id!].answer !== null)){
           if(activeQuestion?.question_type === 'multiple'){
               if(formData[activeQuestion?.id!] === undefined || formData[activeQuestion?.id!]?.answer === null || (Number(activeQuestion?.required_question) === 1 && formData[activeQuestion?.id!].answer.length <= 0)){
-                // setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
+                setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
                 return;
               }
               else if(activeQuestion.min_options > 0 && (formData[activeQuestion?.id!].answer.length < activeQuestion.min_options) && formData[activeQuestion?.id!].answer.length != 0){
-                // setActiveQuestionError(survey_labels.POLL_SURVEY_MIN_SELECTION_ERROR
-                //   .replace(/%q/g, activeQuestion.value)
-                //   .replace(/%s/g, activeQuestion.min_options.toString())
-                // );
+                setActiveQuestionError(survey_labels.POLL_SURVEY_MIN_SELECTION_ERROR
+                  .replace(/%q/g, activeQuestion.value)
+                  .replace(/%s/g, activeQuestion.min_options.toString())
+                );
                 return;
               }
               else if(activeQuestion.max_options > 0 && (formData[activeQuestion?.id!].answer.length > activeQuestion.max_options) && formData[activeQuestion?.id!].answer.length != 0){
@@ -188,31 +190,31 @@ function SurveyDetail (){
             }
             else if(activeQuestion?.question_type === 'single') {
               if(formData[activeQuestion?.id!] === undefined || formData[activeQuestion?.id!]?.answer === null || formData[activeQuestion?.id!].answer.length <= 0){
-                // setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
+                setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
                 return;
               }
             }
             else if(activeQuestion?.question_type === 'dropdown') {
               if(formData[activeQuestion?.id!] === undefined || formData[activeQuestion?.id!]?.answer === null || formData[activeQuestion?.id!].answer.length <= 0){
-                // setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
+                setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
                 return;
               } 
             }
             else if(activeQuestion?.question_type === 'world_cloud') {
               if(formData[activeQuestion?.id!] === undefined || formData[activeQuestion?.id!]?.answer === null || Object.keys(formData[activeQuestion?.id!].answer).length < activeQuestion.entries_per_participant){
-                // setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
+                setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
                 return;
               } 
             }
             else if(activeQuestion?.question_type === 'matrix') {
               if(formData[activeQuestion?.id!] === undefined || formData[activeQuestion?.id!]?.answer === null || Object.keys(formData[activeQuestion?.id!].answer).length < activeQuestion.answer.length){
-                // setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
+                setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
                 return;
               } 
             }
             else{
               if(Number(activeQuestion?.required_question) === 1 && (formData[activeQuestion?.id!] === undefined || formData[activeQuestion?.id!]?.answer === null || formData[activeQuestion?.id!].answer === '')){
-                // setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
+                setActiveQuestionError(event.labels.REGISTRATION_FORM_FIELD_REQUIRED);
                 return;
               }
             }
@@ -303,11 +305,17 @@ return(
                   <SectionLoading />
               ) : (
                 <>
-                <Container mb="3" maxW="100%" w="100%">
                <SessionTimer/>
+                <Container mb="3" maxW="100%" w="100%">
                   
                   {/* <Button onPress={()=>navigate(`/${event.name}/survey`)}>Back</Button> */}
-                <Text mb={1} textBreakStrategy='simple' w={'100%'} textAlign={'center'} fontSize="2xl" color={'primary.text'} fontWeight={'bold'}>{detail?.info.name}</Text>
+                <Text mb={1} textBreakStrategy='simple' w={'100%'} textAlign={'left'} fontSize="2xl" color={'primary.text'} fontWeight={'bold'}>{detail?.info.name}</Text>
+                <a  href={'https://xd.adobe.com/view/d248a3ae-ef0c-4ed1-9ac4-61bc02d73544-871b/screen/632b84f6-a8c3-4dea-9c87-fffc8135ab20/specs/'}
+                  target='_blank'
+                style={{ marginBottom:"20px" }}>
+                  <Text underline fontSize={'sm'} fontWeight={'normal'} mb="5">
+                    Read more about OK21</Text>
+                </a>
               {/* {detail?.questions.length! > 0 && <div >
                 { detail?.questions.map((item, key)=>(
                     <Box key={key} bg={steps >= key ? 'secondary.500' : 'transparent'} h="22px" w={`${stepIndicatorWidth}%`} />
@@ -322,8 +330,8 @@ return(
                     {detail?.questions[steps].question_type === 'dropdown' && <DropdownAnswer question={detail?.questions[steps]} formData={formData} updateFormData={updateFormData} error={activeQuestionError}labels={event?.labels} forceRender={forceUpdate} key={detail?.questions[steps].id}   />}
                     {detail?.questions[steps].question_type === 'open' && <OpenQuestionAnswer question={detail?.questions[steps]} formData={formData} updateFormData={updateFormData} error={activeQuestionError} labels={event?.labels} forceRender={forceUpdate} key={detail?.questions[steps].id}   />}
                     {detail?.questions[steps].question_type === 'number' && <NumberAnswer question={detail?.questions[steps]} formData={formData} updateFormData={updateFormData} error={activeQuestionError} labels={event?.labels} forceRender={forceUpdate}key={detail?.questions[steps].id}  />}
-                    {/* {detail?.questions[steps].question_type === 'date' && <DateAnswer question={detail?.questions[steps]} formData={formData} updateFormData={updateFormData} error={activeQuestionError} labels={event?.labels} forceRender={forceUpdate} key={detail?.questions[steps].id}  />} */}
-                    {/* {detail?.questions[steps].question_type === 'date_time' && <DateTimeAnswer question={detail?.questions[steps]} formData={formData} updateFormData={updateFormData} error={activeQuestionError} labels={event?.labels} forceRender={forceUpdate} key={detail?.questions[steps].id}  />} */}
+                    {detail?.questions[steps].question_type === 'date' && <DateAnswer question={detail?.questions[steps]} formData={formData} updateFormData={updateFormData} error={activeQuestionError} labels={event?.labels} forceRender={forceUpdate} key={detail?.questions[steps].id}  />}
+                    {detail?.questions[steps].question_type === 'date_time' && <DateTimeAnswer question={detail?.questions[steps]} formData={formData} updateFormData={updateFormData} error={activeQuestionError} labels={event?.labels} forceRender={forceUpdate} key={detail?.questions[steps].id}  />}
                     {detail?.questions[steps].question_type === 'world_cloud' && <WordCloudAnswer question={detail?.questions[steps]} formData={formData} updateFormData={updateFormData} error={activeQuestionError} labels={event?.labels} forceRender={forceUpdate} key={detail?.questions[steps].id}  />}
                   </View>
                 )}
@@ -332,16 +340,22 @@ return(
                       <Text>{survey_labels?.NO_SURVEY_AVAILABL}</Text>
                   </Box>
                 }
-                <Box py="0" px="4" w="100%">
-                  <Divider mb="15" opacity={0.27} bg="primary.text" />
+                <Box py="0"  w="100%">
+                  {/* <Divider mb="15" opacity={0.27} bg="primary.text" /> */}
                   <HStack mb="3" space="3" alignItems="center">
                     {steps > 0 && <Button
                       isDisabled={steps <= 0 ? true : false}
-                      p="4"
-                      fontSize="lg"
-                      leftIcon={<Icon size="md" as={SimpleLineIcons} name="arrow-left" color="primary.text" />}
+                      // p="4"
+                     bg={'transparent'}
+                      borderWidth={1}
+                      rounded={'md'}
+                      borderColor={'white'}
+                      width={227}
+                      height={50}
+                      fontSize="md"
+                      leftIcon={<Icon size="xs" as={SimpleLineIcons} name="arrow-left" color="primary.text" mr={1}/>}
                       _icon={{color: 'primary.text'}}
-                      _hover={{_text: {color: 'primary.hovercolor'},_icon: {color: 'primary.hovercolor'}}}
+                      _hover={{borderWidth:0,_icon: {color: 'primary.hovercolor'}}}
                       colorScheme="primary"
                       onPress={() => {
                         setActiveQuestionError(null);
@@ -352,17 +366,24 @@ return(
                     </Button>}
                     <Spacer />
                      <Button
-                      p="4"
-                      fontSize="lg"
-                      rightIcon={<Icon size="md" as={SimpleLineIcons} name="arrow-right" color={'primary.text'} />}
+                     bg={'transparent'}
+                     borderWidth={1}
+                      rounded={'md'}
+                      borderColor={'white'}
+                       width={227}
+                       height={50}
+                      fontSize="md"
+                      rightIcon={<Icon size="xs" as={SimpleLineIcons} name="arrow-right" color={'primary.text'} ml={1}/>}
                       _icon={{color: 'primary.text'}}
-                      _hover={{_text: {color: 'primary.hovercolor'},_icon: {color: 'primary.hovercolor'}}}
+                      _hover={{borderWidth:0,_icon: {color: 'primary.hovercolor'}}}
                       colorScheme="primary"
                       onPress={() => {
                         setNextStep();
                       }}
                     >
-                      {survey_labels?.POLL_SURVEY_NEXT}
+                      {steps==(detail?.questions.length!-1)?"  Submit":
+                      `${survey_labels?.POLL_SURVEY_NEXT}`
+                      }
                     </Button>
                   </HStack>
                   {/* {steps === (detail?.questions.length! - 1) &&  */}
@@ -481,24 +502,48 @@ const ConfirmModal=({modalVisible,setModalVisible,handleSubmit,resetForSubmitAga
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   return(
+    <>
     <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} initialFocusRef={initialRef} finalFocusRef={finalRef} 
-    
+  
     >
-    <Modal.Content width={ 622}
+    <Modal.Content 
+      maxWidth={'600'}
+      width={'100%'}
     >
       <Modal.CloseButton />
-      <Modal.Header fontSize={'3xl'} fontWeight={'bold'} borderWidth={0}>Confirm Vote</Modal.Header>
-      <Modal.Body borderWidth={0}>
-       Are you sure?
+      <Modal.Header fontSize={'3xl'} fontWeight={'bold'} borderWidth={0} color={'#1D9FE4'}>Confirm Vote</Modal.Header>
+      <Modal.Body borderWidth={0} fontSize={'lg'} >
+       Are you sure? you have confirm Vote
       </Modal.Body>
       <Modal.Footer>
         <Button.Group space={2}>
-          <Button variant="ghost" colorScheme="blueGray" onPress={() => {
+          <Button
+           bg={'gray.50'} _text={{ color:'black' }}
+            borderWidth={1}
+             rounded={'md'}
+             borderColor={'white'}
+             width={193}
+             height={50}
+             fontSize="md"
+             _icon={{color: 'primary.text'}}
+             _hover={{borderWidth:0,_icon: {color: 'primary.hovercolor'}}}
+          colorScheme="unstyled" onPress={() => {
           setModalVisible(false);
         }}>
             Cancel
           </Button>
-          <Button onPress={() => {
+          <Button 
+            bg={'transparent'}
+            borderWidth={1}
+             rounded={'md'}
+             borderColor={'white'}
+              width={193}
+              height={50}
+             fontSize="md"
+             _icon={{color: 'primary.text'}}
+             _hover={{bg:'#1D9FE4',borderWidth:0,_icon: {color: 'primary.hovercolor'}}}
+             colorScheme="primary"
+          onPress={() => {
             if(!submittingSurvey){
               handleSubmit()
               setModalVisible(false);
@@ -510,5 +555,7 @@ const ConfirmModal=({modalVisible,setModalVisible,handleSubmit,resetForSubmitAga
       </Modal.Footer>
     </Modal.Content>
   </Modal>
+  </>
+
   )
 }

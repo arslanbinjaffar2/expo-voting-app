@@ -101,7 +101,7 @@ function LoginForm({props}:any){
           {!in_array('login-attendee',processing) ?
           <>
            <span style={{ fontSize: '15px', color: '#fff', marginRight: 10, fontWeight: '700' }}>Login</span>
-          <img style={{ width: '16px', height: '10px' }} alt="" src={arrowRightIcon} />
+          <img style={{ width: '16px', height: '10px',marginTop:'4px' }} alt="" src={arrowRightIcon} />
           </>
         :<>
         <DotLoader size={'30px'}/>

@@ -1,3 +1,6 @@
+/* @import 'react-datetime-picker/dist/DateTimePicker.css';
+@import 'react-calendar/dist/Calendar.css';
+@import 'react-clock/dist/Clock.css'; */
 
 * {
   padding: 0;
@@ -88,7 +91,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 80px 55px;
+  padding: 36px 55px;
   backdrop-filter: blur(6px);
   color: #fff;
 }
@@ -383,25 +386,38 @@ input{
 .survey_list_container{
  display: flex;
  flex-direction: column;
- gap: 10px;
+ gap: 8px;
+ padding-right: 10px;
 }
 .survey_list_container .survey_list_item{
   cursor: pointer;
-  border-radius: 10px;
-  padding: 30px;
-  color: white;
-  background-color: black;
+  border-radius: 5px;
+  height: 56px;
+  padding: 20px 16px;
+  color: black;
+  background-color: rgba(255, 255, 255, 1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+
 }
 .survey_list_container .survey_list_item h4{
   margin: 0;
 }
-.survey_list_container .survey_list_item:hover{
-    color: black;
-    background-color: rgba(255, 255, 255, 1);
+.survey_list_container .survey_list_item:hover{ 
+    color: white;
+    background-color: black;
 }
-
+.survey_list_container .survey_list_item span{
+  opacity: 0;
+}
+.survey_list_container .survey_list_item:hover span{
+ opacity: 1;
+}
 /* custom checkbox */
-    .custom_checkbox_container{
+  .custom_checkbox_item{
         background: #FFFFFF ;
         border: 1px solid #BBBBBB;
         border-radius: 5px;
@@ -420,7 +436,7 @@ input{
     .custom-checkbox + label {
       position: relative;
       width: 100%;
-      padding-left: 30px;
+      padding-left: 16px;
       cursor: pointer;
       display: inline-block;
       line-height: 20px;
@@ -435,7 +451,7 @@ input{
       content: '';
       position: absolute;
       right: 3%;
-      bottom: -36%;  
+      bottom: -43%;
       width: 36px;
       height: 36px;
       border: 1px solid #ACACAC;
@@ -451,3 +467,78 @@ input{
       background-repeat: no-repeat;
       background-position: center;
     }
+
+
+
+    /* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  padding-left: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(234, 234, 234, 0.3); 
+  opacity: 0.3;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  padding-left: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(234, 234, 234, 0.5); 
+  padding-left: 20px;
+}
+
+
+.my-custom-calendar {
+  font-size: 16px; /* Adjust font size */
+}
+
+.react-datetime-picker {
+  width: 100%; /* Adjust width */
+}
+
+.react-datetime-picker__wrapper {
+  border: 1px solid #ccc; /* Adjust border */
+}
+
+.react-calendar {
+  width: 100%;
+  background-color: #fff; /* Adjust background color */
+}
+
+.react-calendar__tile--active {
+  background-color: #00aaff; /* Adjust active tile color */
+}
+
+.ebs-date-wrapper{
+  color: black;
+}
+ebs-date-wrapper input{
+  background-color: red;
+}
+/* .r-backgroundColor-xy5hfg{
+  background-color: white;
+} */
+.css-view-175oi2r {
+  z-index: unset !important;
+}
+
+
+#textAreaNative{
+  font-size: 14px;
+  font-weight: 400;
+  color: black;
+  background-color: white;
+}
+#textAreaNative::placeholder{
+  font-size: 14px;
+  font-weight: 400;
+  color: #6D6D6D;
+}
+
+#textAreaNative:focus{
+  background-color: white;
+}

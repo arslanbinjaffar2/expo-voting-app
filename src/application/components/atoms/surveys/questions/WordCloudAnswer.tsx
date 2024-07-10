@@ -25,7 +25,7 @@ const WordCloudAnswer = ({ question, formData, updateFormData, error, labels }: 
           {[...Array(question.entries_per_participant)].map((item, k) =>
             <HStack alignItems="center" key={k} w="100%">
               {/* <Text w="10%" fontSize="lg">{k+1}</Text> */}
-               <Input placeholder={survey_labels?.WORD_CLOUD_ENTER_YOUR_WORD} width="100%"  value={inputTextArray[k] !== undefined  ? inputTextArray[k] : ''} onChangeText={(answer)=>{ 
+               <Input   nativeID='textAreaNative' placeholder={survey_labels?.WORD_CLOUD_ENTER_YOUR_WORD} width="100%"  value={inputTextArray[k] !== undefined  ? inputTextArray[k] : ''} onChangeText={(answer)=>{ 
                     updateFormData(question.id, question.question_type, answer, k)
                     setInputTextArray({...inputTextArray, [k]:answer});
                   }}
@@ -46,6 +46,7 @@ const WordCloudAnswer = ({ question, formData, updateFormData, error, labels }: 
         </HStack>
         <Box py="3" px="4" w="100%">
            <TextArea
+           nativeID='textAreaNative'
             p="3"
             mb={1}
             h="100px"

@@ -4,7 +4,8 @@ import { Box, Center, Checkbox, Divider, HStack, Icon, Radio, Text, TextArea, Vi
 import { Question, FormData } from '../../../../models/survey/Detail';
 import { Platform } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import CustomCheckbox from '../customs/Checkbox';
+import CustomCheckbox from '../customs/RadioBox';
+import MyRadioGroup from '../customs/RadioBox';
 
 type PropTypes = {
   question: Question,
@@ -17,9 +18,9 @@ type PropTypes = {
 const SingleAnswer = ({ question, formData, updateFormData, error, labels }: PropTypes) => {
   return (
     <View  width="100%" mb="0">
-      <Box mb="3" py="3" px="4" width={'100%'} >
-        <Text fontWeight="600" mb="3" maxW="80%" fontSize="lg">{Number(question?.required_question) === 1 && <Text display={Platform.OS === 'web' ? "inline" : 'flex'} color="red.500">*</Text>} {question?.value}</Text>
-        <Divider mb="5" opacity={0.27} bg="primary.text" />
+      <Box mb="3"  width={'100%'} >
+        <Text fontWeight="600" mb="3" maxW="80%" fontSize="md">{Number(question?.required_question) === 1 && <Text display={Platform.OS === 'web' ? "inline" : 'flex'} color="red.500">*</Text>} {question?.value} what do u know about this website?</Text>
+        {/* <Divider mb="5" opacity={0.27} bg="primary.text" /> */}
         {/* <Radio.Group space="4" defaultValue={formData[question.id]?.answer !== null && formData[question.id]?.answer.length > 0 ?  `${formData[question.id]?.answer[0]}` : ``} name="MyRadioGroup" 
          onChange={answer_id => {updateFormData(question.id, question.question_type, answer_id);}}>
           {question.answer.map((answer, k) =>
@@ -39,6 +40,7 @@ const SingleAnswer = ({ question, formData, updateFormData, error, labels }: Pro
           </HStack>
           <Box py="3" px="4" w="100%">
             <TextArea
+            nativeID='textAreaNative'
               p="3"
               mb={1}
               h="100px"
@@ -60,35 +62,4 @@ export default SingleAnswer
 
 
 
-// Skipped existing code for brevity
-
-const MyRadioGroup = ({ formData, question, updateFormData }:any) => {
-  return (
-    <div className="verificationArea" style={{ display:'flex',alignItems:"flex-start",flexDirection:'column',gap:'10px',width:"100%" }}>
-      {question.answer.map((answer:any, k:any) => (
-        <CustomCheckbox  onChange={() => updateFormData(question.id, question.question_type, answer.id)}
-        key={k}
-          type="radio"
-          htmlFor={`singleanswer${answer.id}`}
-          id={`singleanswer${answer.id}`}
-          name='singleanswer'
-          text={answer.answer}
-          
-          />
-        // <div className="formRow" style={{ display:'flex',alignItems:"center",justifyContent:"space-between",width:"100%" }}>
-        // <label className="label" htmlFor={`singleanswer${answer.id}`}>{answer.answer}</label>
-        // <input
-        //   key={k}
-        //   type="radio"
-        //   checked={answer.id}
-        //   id={`singleanswer${answer.id}`}
-        //   name='singleanswer'
-        //   onChange={() => updateFormData(question.id, question.question_type, answer.id)}
-        //   style={{ height: 56,width:56, borderColor: '#ddd', borderWidth: 1, borderRadius: 5, backgroundColor: '#fff', paddingLeft: 20, paddingRight: 20 }}
-        //   />
-        //   </div>
-      ))}
-    </div>
-  );
-};
 

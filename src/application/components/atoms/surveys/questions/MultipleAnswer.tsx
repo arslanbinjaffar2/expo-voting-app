@@ -2,7 +2,9 @@ import React from 'react';
 import { Box, Center, Checkbox, Divider, HStack, Text, TextArea, VStack } from 'native-base';
 // import Icowritecomment from 'application/assets/icons/small/Icowritecomment';
 import { Question, FormData } from '../../../../models/survey/Detail';
-import CustomCheckbox from '../customs/Checkbox';
+import CustomCheckbox from '../customs/RadioBox';
+import MyRadioGroup from '../customs/RadioBox';
+import MyCheckboxGroup from '../customs/CheckBox';
 
 type PropTypes = {
   question: Question,
@@ -16,22 +18,18 @@ type PropTypes = {
 const MultipleAnswer = ({ question, formData, updateFormData, error, labels }: PropTypes) => {
   return (
     <Center maxW="100%" w="100%" mb="0">
-      <Box mb="3" py="3" px="4" width={'100%'}>
+      <Box mb="3"  width={'100%'}>
         <Text fontWeight="600" mb="3" maxW="80%" fontSize="lg">{Number(question?.required_question) === 1 && <Text color="red.500">*</Text>} {question?.value}</Text>
-        <Divider mb="5" opacity={0.27} bg="primary.text" />
+        {/* <Divider mb="5" opacity={0.27} bg="primary.text" /> */}
         <VStack space="4">
-        {/* <Checkbox.Group defaultValue={formData[question.id]?.answer !== null && formData[question.id]?.answer.length > 0 ? formData[question.id]?.answer : []} onChange={(answers) => { console.log(answers);  updateFormData(question.id, question.question_type, answers)}} aria-label={question?.value} > */}
+        {/* <Checkbox.Group defaultValue={formData[question.id]?.answer !== null && formData[question.id]?.answer.length > 0 ? formData[question.id]?.answer : []} onChange={(answers) => { console.log(answers);  updateFormData(question.id, question.question_type, answers)}} aria-label={question?.value} >
           {question?.answer.map((answer, k) =>
-            // <Checkbox key={k} size="md" mb={3}  value={`${answer.id}`}>{answer.answer}</Checkbox>
-            <CustomCheckbox 
-            key={k}
-            checked={answer.id}
-            id={`singleanswer${answer.id}`}
-            name='singleanswer'
-            htmlFor={`singleanswer${answer.id}`}
-            onChange={() => updateFormData(question.id, question.question_type, answer.id)} text={answer.answer}/>
+            <Checkbox key={k} size="md" mb={3} width={40} height={40} value={`${answer.id}`}>{answer.answer}</Checkbox>
           )}
-        {/* </Checkbox.Group> */}
+        </Checkbox.Group> */}
+   
+       <MyCheckboxGroup formData={formData} question={question} updateFormData={updateFormData}/>
+         {/* <MyRadioGroup formData={formData} question={question} updateFormData={updateFormData}/> */}
         </VStack>
       </Box>
       {error && <Box  mb="3" py="3" px="4" backgroundColor="red.100" w="100%">
@@ -39,12 +37,9 @@ const MultipleAnswer = ({ question, formData, updateFormData, error, labels }: P
       </Box>}
       {Number(question.enable_comments) === 1 &&
         <>
-        <HStack px="3" py="1" bg="primary.darkbox" w="100%" space="3" alignItems="center">
-          {/* <Icowritecomment width="15px" height="18px" /> */}
-          <Text fontSize="lg">{labels?.GENERAL_YOUR_COMMENT}</Text>
-        </HStack>
-        <Box py="3" px="4" w="100%">
+        <Box pb="3"  w="100%">
            <TextArea
+           nativeID='textAreaNative'
             p="3"
             mb={1}
             h="100px"

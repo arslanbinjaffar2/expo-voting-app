@@ -19,10 +19,10 @@ const NumberAnswer = ({ question, formData, updateFormData, error, labels }: Pro
 
   return (
     <Center maxW="100%" w="100%" mb="0">
-      <Box mb="3" py="3" px="4"width={'100%'}>
+      <Box  py="3" width={'100%'}>
         <Text fontWeight="600" mb="3" maxW="80%" fontSize="lg">{question?.required_question == '1' && <Text display={Platform.OS === 'web' ? "inline" : 'flex'} color="red.500">*</Text>} {question?.value}</Text>
-        <Divider mb="5" opacity={0.27} bg="primary.text" />
-        <Input w="100%" placeholder={survey_labels?.POLLS_NUMERIC_FIELD} keyboardType = 'numeric' value={inputText} onChangeText={(answer)=>{ 
+        {/* <Divider mb="5" opacity={0.27} bg="primary.text" /> */}
+        <Input nativeID='textAreaNative' bg={'white'} color={'black'} w="100%" placeholder={survey_labels?.POLLS_NUMERIC_FIELD} keyboardType = 'numeric' value={inputText} onChangeText={(answer)=>{ 
             updateFormData(question.id, question.question_type, answer.replace(/[^0-9]/g, ''))
             setInputText(answer.replace(/[^0-9]/g, ''));
         }}  />
@@ -32,16 +32,15 @@ const NumberAnswer = ({ question, formData, updateFormData, error, labels }: Pro
       </Box>}
       {Number(question.enable_comments) === 1 &&
         <>
-        <HStack px="3" py="1" bg="primary.darkbox" w="100%" space="3" alignItems="center">
-          {/* <Icowritecomment width="15px" height="18px" /> */}
-          <Text fontSize="lg">{labels?.GENERAL_YOUR_COMMENT}</Text>
-        </HStack>
-        <Box py="3" px="4" w="100%">
+        <Box pb="3"  w="100%">
            <TextArea
+           nativeID='textAreaNative'
             p="3"
             mb={1}
             h="100px"
-            bg={'primary.darkbox'}
+            // bg={'primary.darkbox'}
+            bg={'white'}
+            color={'black'}
             onChangeText={(text) => updateFormData(question.id, 'comment', text)}
             defaultValue={formData[question.id]?.comment !== null ? formData[question.id]?.comment : ``}
             borderWidth="0" fontSize="md" placeholder={labels?.GENERAL_COMMENT} autoCompleteType={undefined} />

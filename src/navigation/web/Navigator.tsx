@@ -5,6 +5,7 @@ import ProtectedRoute from '../routes/ProtectedRoute'
 
 const WebNavigation = () => {
   return (
+    <>
     <Router>
     <Routes>
     <Route path={'/:event/login'} element={<Login />}/>
@@ -23,8 +24,12 @@ const WebNavigation = () => {
       <SurveyDetail/>
       </ProtectedRoute>
       }/>
+      <Route path="*" element={<div className=''>
+          <h1>404 error check event url</h1>
+      </div>}/>
     </Routes>
     </Router>
+    </>
   )
 }
 

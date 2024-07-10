@@ -4,7 +4,7 @@ import UseEnvServices from './application/redux/store/services/useEnvServices';
 import { ToastContainer } from 'react-toastify';
 import WebNavigation from './navigation/web/Navigator'
 import  './assets/css/style.css';
-import "react-datepicker/dist/react-datepicker.css";
+
 import { ImageBackground, StyleSheet, View } from 'react-native';
 import NativeBaseProvider from './navigation/routes/NativeBaseProvider';
 export const Provider = () => {
@@ -34,11 +34,13 @@ export const Provider = () => {
       }
     }, [FetchEvent, eventId, _env.api_base_url])
     const image = { uri: `${_env.eventcenter_base_url}/assets/event/app_background/${event?.settings?.app_background_image}`};
+    console.log(image,"image")
+
   return (
     <NativeBaseProvider>
       <ToastContainer/>
       <View style={styles.container}>
-        <ImageBackground style={styles.banner} source={image} >
+        <ImageBackground style={styles.banner} source={image}>
           <WebNavigation />
         </ImageBackground>
       </View>
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: '100%',
     width: '100%',
-    resizeMode: "contain",
+    resizeMode: "cover",
     backgroundColor: '#1D9FE4',
   }
 });

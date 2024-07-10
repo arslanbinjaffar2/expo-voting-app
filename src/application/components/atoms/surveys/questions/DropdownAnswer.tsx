@@ -15,11 +15,15 @@ type PropTypes = {
 const DropdownAnswer = ({ question, formData, updateFormData, error, labels }: PropTypes) => {
   return (
     <Center maxW="100%" w="100%" mb="0">
-      <Box mb="5" py="3" px="4" width={'100%'}>
+      <Box mb="5"  width={'100%'}>
         <Text fontWeight="600" mb="3" maxW="80%" fontSize="lg">{Number(question?.required_question) === 1 &&  <Text display={Platform.OS === 'web' ? "inline" : 'flex'} color="red.500">*</Text>} {question?.value}</Text>
-        <Divider mb="5" opacity={0.27} bg="primary.text" />
+        {/* <Divider mb="5" opacity={0.27} bg="primary.text" /> */}
         <Select
+          nativeID='textAreaNative'
+         bg={'white'}
+         color={'black'}
           placeholder="Please select"
+          
           minWidth="64"
           h="50px"
           selectedValue={formData[question.id]?.answer !== null && formData[question.id]?.answer.length > 0 ? formData[question.id]?.answer[0] : ``}
@@ -39,6 +43,7 @@ const DropdownAnswer = ({ question, formData, updateFormData, error, labels }: P
           </HStack>
           <Box py="3" px="4" w="100%">
              <TextArea
+             nativeID='textAreaNative'
               p="3"
               mb={1}
               h="100px"

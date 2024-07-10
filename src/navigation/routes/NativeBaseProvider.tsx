@@ -13,22 +13,23 @@ const NativeBaseProvider = ({ children }: { children: React.ReactNode }) => {
       const theme = extendTheme({
         colors: ThemeColors,
         fontConfig: {
-          Avenir: {
-            400: {
-              normal: 'avenir-medium'
-            },
-            600: {
-              normal: 'avenir-demi'
-            },
-            700: {
-              normal: 'avenir-bold'
-            },
-          }
+          // Avenir: {
+          //   400: {
+          //     normal: 'avenir-medium'
+          //   },
+          //   600: {
+          //     normal: 'avenir-demi'
+          //   },
+          //   700: {
+          //     normal: 'avenir-bold'
+          //   },
+          
+          // }
         },
         fonts: {
-          heading: 'Avenir',
-          body: 'Avenir',
-          mono: 'Avenir',
+          // heading: 'Avenir',
+          // body: 'Avenir',
+          // mono: 'Avenir',
         },
         components: {
           Heading: {
