@@ -35,7 +35,7 @@ const MyDTPicker: FC<any> = (props: Props): any => {
           
           <Button bg={tab !== "time" ? 'primary.500' : 'secondary.500'} w="48%" p="0">
             <label style={{width: '120px',padding: "10px 15px",boxSizing: 'border-box',textAlign: 'center'}}> <input style={{display: 'none'}} defaultChecked onChange={() => {textInput.current?.navigate('days');setTab('days')}} type="radio" name="calendar" />
-              {/* <Icon size="8" as={AntDesign} name="calendar" color="primary.text" /> */}
+              <Icon size="8" as={AntDesign} name="calendar" color="primary.text" />
               
             </label>
           </Button>
