@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Box, Container, HStack, Icon, Spacer, Text, VStack, Divider, Button, Pressable, Image, Spinner, View, Modal } from 'native-base'
 import UseSurveyService from '../../../redux/store/services/useSurveyServices';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons'
+import AntDesign from '@expo/vector-icons/AntDesign'
 import {UseEventService} from '../../../redux/store/services/useEventServices';
 import UseLoadingService from '../../../redux/store/services/useLoadingServices';
 import UseEnvService from '../../../redux/store/services/useEnvServices';
@@ -92,6 +93,7 @@ function SurveyDetail (){
   const {loading}=UseLoadingService()
   const [forceUpdate, setForceUpdate] = useState<number>(0);
   const [showModal,setShowModal]=useState(false)
+  const [cancelSurveyModal,setCancelSurveyModal]=useState(false)
   const [steps, setsteps] = useState<number>(0);
 
   const [completed, setcompleted] = useState<boolean>(false);
@@ -306,10 +308,10 @@ return(
               ) : (
                 <>
                <SessionTimer/>
-                <Container mb="3" maxW="100%" w="100%">
+                <Container mb="3" maxW="100%" w="100%" >
                   
                   {/* <Button onPress={()=>navigate(`/${event.name}/survey`)}>Back</Button> */}
-                <Text mb={1} textBreakStrategy='simple' w={'100%'} textAlign={'left'} fontSize="2xl" color={'primary.text'} fontWeight={'bold'}>{detail?.info.name}</Text>
+                <Text pt={3} pb={1} textBreakStrategy='simple' w={'100%'} textAlign={'left'} fontSize="2xl" color={'primary.text'} fontWeight={'bold'}>{detail?.info.name}</Text>
                 <a  href={'https://xd.adobe.com/view/d248a3ae-ef0c-4ed1-9ac4-61bc02d73544-871b/screen/632b84f6-a8c3-4dea-9c87-fffc8135ab20/specs/'}
                   target='_blank'
                 style={{ marginBottom:"20px" }}>
@@ -321,7 +323,7 @@ return(
                     <Box key={key} bg={steps >= key ? 'secondary.500' : 'transparent'} h="22px" w={`${stepIndicatorWidth}%`} />
                 ))}
               </div>} */}
-              {!completed && <Box maxW="100%" w="100%">
+              {!completed && <Box maxW="100%" w="100%" >
                 {detail?.questions.length! > 0 &&  detail?.questions[steps] !== undefined && (
                   <View width={'100%'}>
                     {detail?.questions[steps].question_type === 'matrix' && <MatrixAnswer question={detail?.questions[steps]} formData={formData} updateFormData={updateFormData} error={activeQuestionError} labels={event?.labels} forceRender={forceUpdate} key={detail?.questions[steps].id}   />}
@@ -342,7 +344,25 @@ return(
                 }
                 <Box py="0"  w="100%">
                   {/* <Divider mb="15" opacity={0.27} bg="primary.text" /> */}
-                  <HStack mb="3" space="3" alignItems="center">
+                  <HStack mb="3" space={[1 ,"3"]}alignItems="center">
+                  {steps == 0 && <Button
+                      // isDisabled={steps <= 0 ? true : false}
+                      // p="4"
+                     bg={'transparent'}
+                      borderWidth={1}
+                      rounded={'md'}
+                      borderColor={'white'}
+                      width={["50%",227]}
+                      height={50}
+                      fontSize="md"
+                      leftIcon={<Icon size="xs" as={SimpleLineIcons} name="arrow-left" color="primary.text" mr={1}/>}
+                      _icon={{color: 'primary.text'}}
+                      _hover={{borderWidth:0,_icon: {color: 'primary.hovercolor'}}}
+                      colorScheme="primary"
+                      onPress={() => setCancelSurveyModal(true)}
+                    >
+                      Cancel
+                    </Button>}
                     {steps > 0 && <Button
                       isDisabled={steps <= 0 ? true : false}
                       // p="4"
@@ -350,7 +370,7 @@ return(
                       borderWidth={1}
                       rounded={'md'}
                       borderColor={'white'}
-                      width={227}
+                      width={["50%",227]}
                       height={50}
                       fontSize="md"
                       leftIcon={<Icon size="xs" as={SimpleLineIcons} name="arrow-left" color="primary.text" mr={1}/>}
@@ -370,7 +390,7 @@ return(
                      borderWidth={1}
                       rounded={'md'}
                       borderColor={'white'}
-                       width={227}
+                      width={["50%",227]}
                        height={50}
                       fontSize="md"
                       rightIcon={<Icon size="xs" as={SimpleLineIcons} name="arrow-right" color={'primary.text'} ml={1}/>}
@@ -411,6 +431,7 @@ return(
                           submittingSurvey={submittingSurvey}
                           modalVisible={showModal} setModalVisible={setShowModal} handleSubmit={onSubmit} resetForSubmitAgain={resetForSubmitAgain}/>
                   </Box>
+                  <CancelSurveyModal modalVisible={cancelSurveyModal} setModalVisible={setCancelSurveyModal}/>
                   
                     {/* }  */}
                 </Box>
@@ -459,8 +480,7 @@ const CountdownTimer = React.memo(() => {
   const [timeLeft, setTimeLeft] = useState<number>(5);
   const navigate= useNavigate();
   const {event} = UseEventService();
-  const { survey_labels } = UseSurveyService();
-
+  // const { survey_labels } = UseSurveyService();
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft((prevTimeLeft:any) => prevTimeLeft - 1);
@@ -477,7 +497,7 @@ const CountdownTimer = React.memo(() => {
 
   const onEnd = () => {
     window.open(`https://www.hk.dk/omhk/sektor/kommunal/ok21`, '_blank');
-    navigate(`/${event.name}/survey`)
+    navigate(`/${event.url}/survey`)
   }
 
   return (
@@ -503,30 +523,36 @@ const ConfirmModal=({modalVisible,setModalVisible,handleSubmit,resetForSubmitAga
   const finalRef = React.useRef(null);
   return(
     <>
-    <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} initialFocusRef={initialRef} finalFocusRef={finalRef} 
-  
-    >
+    <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} initialFocusRef={initialRef} finalFocusRef={finalRef}>
     <Modal.Content 
-      maxWidth={'600'}
-      width={'100%'}
+      maxWidth={'400'}
+      width={['90%','100%']}
+      nativeID='confirmModal'
     >
-      <Modal.CloseButton />
-      <Modal.Header fontSize={'3xl'} fontWeight={'bold'} borderWidth={0} color={'#1D9FE4'}>Confirm Vote</Modal.Header>
-      <Modal.Body borderWidth={0} fontSize={'lg'} >
-       Are you sure? you have confirm Vote
+<Modal.Header    borderBottomWidth={2} borderBottomColor={'rgba(173, 173, 173,0.3)'}  nativeID='confirmModal' flexDirection={'row'}
+      justifyContent={'space-between'} alignItems={'center'}
+      >
+      <Text color='#1D9FE4' fontSize='28px'fontWeight="bold">Confirm  Vote</Text>
+      <AntDesign name="close" size={24} color="#A39F9F" onPress={()=>setModalVisible(false)}/> 
+        </Modal.Header>
+      <Modal.Body  fontSize={'lg'} pb={'30px'}  nativeID='confirmModal' _text={{ color:'#6E6E6E',fontSize:"24px",fontWeight:"medium"}}  maxHeight={'150px'} height={'100%'} justifyContent={'center'}
+      alignItems={'flex-start'}
+      >
+       Are you sure, you want cast your vote?
       </Modal.Body>
-      <Modal.Footer>
-        <Button.Group space={2}>
+      <Modal.Footer borderTopWidth={0}  nativeID='confirmModal'>
+        <Button.Group space={2}  >
           <Button
-           bg={'gray.50'} _text={{ color:'black' }}
-            borderWidth={1}
-             rounded={'md'}
-             borderColor={'white'}
-             width={193}
-             height={50}
-             fontSize="md"
-             _icon={{color: 'primary.text'}}
-             _hover={{borderWidth:0,_icon: {color: 'primary.hovercolor'}}}
+              _text={{ color:'black' }}
+              bg={'transparent'}
+               borderWidth={0}
+                rounded={'md'}
+                borderColor={'white'}
+                 width={100}
+                 height={50}
+                fontSize="md"
+                _icon={{color: '#797979'}}
+                _hover={{bg:'transparent',borderWidth:0,_text:{underline:true},_icon: {color: 'primary.hovercolor'}}}
           colorScheme="unstyled" onPress={() => {
           setModalVisible(false);
         }}>
@@ -534,22 +560,93 @@ const ConfirmModal=({modalVisible,setModalVisible,handleSubmit,resetForSubmitAga
           </Button>
           <Button 
             bg={'transparent'}
+            _text={{ color:'black' }}
             borderWidth={1}
              rounded={'md'}
-             borderColor={'white'}
+             borderColor={'black'}
               width={193}
               height={50}
              fontSize="md"
              _icon={{color: 'primary.text'}}
-             _hover={{bg:'#1D9FE4',borderWidth:0,_icon: {color: 'primary.hovercolor'}}}
+             _hover={{borderWidth:0,_icon: {color: 'primary.hovercolor'},_text:{color:"white"}}}
+             onPress={() => {
+              if(!submittingSurvey ){
+                handleSubmit()
+              }
+          }}>
+           {submittingSurvey?
+           <Spinner color="black" fontSize="md"/>
+           :"Confirm Vote"}
+          </Button>
+        </Button.Group>
+      </Modal.Footer>
+    
+    </Modal.Content>
+  </Modal>
+  </>
+
+  )
+}
+
+const CancelSurveyModal=({modalVisible,setModalVisible}:{modalVisible: boolean,setModalVisible: React.Dispatch<React.SetStateAction<boolean>>})=>{
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
+  const navigate=useNavigate()
+  const {event}=UseEventService()
+  return(
+    <>
+    <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} initialFocusRef={initialRef} finalFocusRef={finalRef}>
+    <Modal.Content 
+      maxWidth={'400'}
+      width={['90%','100%']}
+      nativeID='confirmModal'
+    >
+      <Modal.Header    borderBottomWidth={2} borderBottomColor={'rgba(173, 173, 173,0.3)'}  nativeID='confirmModal' flexDirection={'row'}
+      justifyContent={'space-between'} alignItems={'center'}
+      >
+      <Text color='#1D9FE4' fontSize='28px'fontWeight="bold">Cancel  Vote</Text>
+      <AntDesign name="close" size={24} color="#A39F9F" onPress={()=>setModalVisible(false)}/> 
+        </Modal.Header>
+      <Modal.Body  fontSize={'lg'} pb={'30px'}  nativeID='confirmModal' _text={{ color:'#6E6E6E',fontSize:"24px",fontWeight:"medium"}}  maxHeight={'150px'} height={'100%'} justifyContent={'center'}
+    alignItems={'flex-start'}
+      >
+       Are you sure, you do not want continue voting?
+      </Modal.Body>
+      <Modal.Footer borderTopWidth={0}  nativeID='confirmModal' maxHeight={100} height={'100%'}>
+        <Button.Group space={1}  >
+          <Button
+           _text={{ color:'black' }}
+           bg={'transparent'}
+            borderWidth={0}
+             rounded={'md'}
+             borderColor={'white'}
+              width={100}
+              height={50}
+             fontSize="md"
+             _icon={{color: '#797979'}}
+             _hover={{bg:'transparent',borderWidth:0,_text:{underline:true},_icon: {color: 'primary.hovercolor'}}}
+          colorScheme="unstyled" onPress={() => {
+          setModalVisible(false);
+        }}>
+            Cancel
+          </Button>
+          <Button 
+            bg={'transparent'}
+            _text={{ color:'black' }}
+            borderWidth={1}
+             rounded={'md'}
+             borderColor={'black'}
+              width={193}
+              height={50}
+             fontSize="md"
+             _icon={{color: 'primary.text'}}
+             _hover={{borderWidth:0,_icon: {color: 'primary.hovercolor'},_text:{color:"white"}}}
              colorScheme="primary"
           onPress={() => {
-            if(!submittingSurvey){
-              handleSubmit()
-              setModalVisible(false);
-            }
+           setModalVisible(false)
+           navigate(`/${event.url}/survey`)
         }}>
-           {submittingSurvey?"loading...":"Confirm Vote"}
+            confirm
           </Button>
         </Button.Group>
       </Modal.Footer>

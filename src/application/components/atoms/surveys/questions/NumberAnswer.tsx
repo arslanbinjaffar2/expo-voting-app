@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Center, Checkbox, Divider, HStack, Input, Radio, Text, TextArea, VStack } from 'native-base';
+import React, { useState } from 'react';
+import { Box, Center, Checkbox, Divider, HStack, Input, Radio, Text, TextArea, View, VStack } from 'native-base';
 // import Icowritecomment from 'application/assets/icons/small/Icowritecomment';
 import { Question, FormData } from '../../../../models/survey/Detail';
 import { Platform } from 'react-native';
@@ -16,7 +16,17 @@ type PropTypes = {
 const NumberAnswer = ({ question, formData, updateFormData, error, labels }: PropTypes) => {
   const [inputText, setInputText] = React.useState(formData[question.id]?.answer ?? '')
   const { survey_labels} = UseSurveyService();
-
+  const [text, setText] = useState('');
+  const maxChars = 500;
+  const handleChange = (text:string) => {
+    if (text.length <= maxChars) {
+      setText(text);
+      updateFormData(question.id, 'comment', text)
+    }
+    return ;
+  };
+  const remainingChars = maxChars - text.length;
+  const isDisabled = remainingChars <= 0; 
   return (
     <Center maxW="100%" w="100%" mb="0">
       <Box  py="3" width={'100%'}>
@@ -41,10 +51,16 @@ const NumberAnswer = ({ question, formData, updateFormData, error, labels }: Pro
             // bg={'primary.darkbox'}
             bg={'white'}
             color={'black'}
-            onChangeText={(text) => updateFormData(question.id, 'comment', text)}
+            onChangeText={(text) => {
+              handleChange(text)
+              }}
             defaultValue={formData[question.id]?.comment !== null ? formData[question.id]?.comment : ``}
+            // isDisabled={isDisabled}
             borderWidth="0" fontSize="md" placeholder={labels?.GENERAL_COMMENT} autoCompleteType={undefined} />
-            <Text fontSize="sm" textAlign={'right'}>{labels?.GENERAL_CHARACTER_REMAINING !== undefined ? `510 ${labels?.GENERAL_CHARACTER_REMAINING}` : ''}</Text>
+            <View flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+            <Text color={'red.500'} fontSize="sm" fontWeight={'medium'}>{remainingChars<=0?"stop typing no more chacter left ":""}</Text>
+            <Text fontSize="sm" textAlign={'right'}>{labels?.GENERAL_CHARACTER_REMAINING !== undefined ? `${remainingChars} ${labels?.GENERAL_CHARACTER_REMAINING}` : ''}</Text>
+            </View>
         </Box>
         </>
       }

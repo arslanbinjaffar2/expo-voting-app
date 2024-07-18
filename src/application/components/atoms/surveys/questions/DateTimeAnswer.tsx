@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Center, Checkbox, Divider, HStack, Input, Radio, Text, TextArea, VStack, Button } from 'native-base';
+import React, { useState } from 'react';
+import { Box, Center, Checkbox, Divider, HStack, Input, Radio, Text, TextArea, VStack, Button, View } from 'native-base';
 // import Icodocument from 'application/assets/icons/small/Icodocument';
 import { Question, FormData } from '../../../../models/survey/Detail';
 import {GENERAL_DATE_FORMAT, GENERAL_DATETIME_FORMAT, GENERAL_TIME_FORMAT} from '../../../utils/Globals'
@@ -15,6 +15,16 @@ type PropTypes = {
   forceRender:number,
 }
 const DateTimeAnswer = ({ question, formData, updateFormData, labels, error }: PropTypes) => {
+  const [text, setText] = useState('');
+  const maxChars = 500;
+  const handleChange = (text:string) => {
+    if (text.length <= maxChars) {
+      setText(text);
+      updateFormData(question.id, 'comment', text)
+    }
+    return ;
+  };
+  const remainingChars = maxChars - text.length;
   return (
     <Center position={'relative'} zIndex={9999} maxW="100%" w="100%" mb="0">
       <Box zIndex={9999} position={'relative'}  py="3"  w="100%">
@@ -36,9 +46,12 @@ const DateTimeAnswer = ({ question, formData, updateFormData, labels, error }: P
           // bg={'primary.darkbox'}
           bg={'white'}
           defaultValue={formData[question.id]?.comment !== null ? formData[question.id]?.comment : ``}
-          onChangeText={(text) => updateFormData(question.id, 'comment', text)}
+          onChangeText={(text) => handleChange(text)}
           borderWidth="0" fontSize="md" placeholder={labels?.GENERAL_COMMENT} autoCompleteType={undefined} />
-        <Text fontSize="sm" textAlign={'right'}>{labels?.GENERAL_CHARACTER_REMAINING !== undefined ? `510 ${labels?.GENERAL_CHARACTER_REMAINING}` : ''}</Text>
+          <View flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+            <Text color={'red.500'} fontSize="sm" fontWeight={'medium'}>{remainingChars<=0?"stop typing no more chacter left ":""}</Text>
+            <Text fontSize="sm" textAlign={'right'}>{labels?.GENERAL_CHARACTER_REMAINING !== undefined ? `${remainingChars} ${labels?.GENERAL_CHARACTER_REMAINING}` : ''}</Text>
+            </View>
         </Box>
       </>
       }

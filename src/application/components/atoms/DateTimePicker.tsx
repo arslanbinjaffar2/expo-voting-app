@@ -60,6 +60,7 @@ const MyDTPicker: FC<any> = (props: Props): any => {
           placeholderTextColor={'#6D6D6D'}
           h={50}
           opacity={props.disabled ? '0.5' : 1} 
+          _focus={{ bg:"white" }}
           bg={'#fff'}
           color={'#000'}
           rightElement={

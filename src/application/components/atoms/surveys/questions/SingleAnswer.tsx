@@ -16,6 +16,16 @@ type PropTypes = {
   forceRender:number,
 }
 const SingleAnswer = ({ question, formData, updateFormData, error, labels }: PropTypes) => {
+  const [text, setText] = useState('');
+  const maxChars = 500;
+  const handleChange = (text:string) => {
+    if (text.length <= maxChars) {
+      setText(text);
+      updateFormData(question.id, 'comment', text)
+    }
+    return ;
+  };
+  const remainingChars = maxChars - text.length;
   return (
     <View  width="100%" mb="0">
       <Box mb="3"  width={'100%'} >
@@ -46,9 +56,12 @@ const SingleAnswer = ({ question, formData, updateFormData, error, labels }: Pro
               h="100px"
               bg={'primary.darkbox'}
               defaultValue={formData[question.id]?.comment !== null ? formData[question.id]?.comment : ``}
-              onChangeText={(text) => updateFormData(question.id, 'comment', text)}
+              onChangeText={(text) => handleChange(text)}
               borderWidth="0" fontSize="md" placeholder={labels?.GENERAL_COMMENT} autoCompleteType={undefined} />
-              <Text fontSize="sm" textAlign={'right'}>{labels?.GENERAL_CHARACTER_REMAINING !== undefined ? `510 ${labels?.GENERAL_CHARACTER_REMAINING}` : ''}</Text>
+            <View flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+            <Text color={'red.500'} fontSize="sm" fontWeight={'medium'}>{remainingChars<=0?"stop typing no more chacter left ":""}</Text>
+            <Text fontSize="sm" textAlign={'right'}>{labels?.GENERAL_CHARACTER_REMAINING !== undefined ? `${remainingChars} ${labels?.GENERAL_CHARACTER_REMAINING}` : ''}</Text>
+            </View>
           </Box>
         </>
       }

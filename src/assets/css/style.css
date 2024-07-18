@@ -338,11 +338,13 @@ button {
     width: 90%;
     padding: 20px;
     min-height: 300px;
+    margin-top: 500px;
 }
 
 .rightContainer {
   width: 90%;
-    padding: 20px;
+  padding: 20px;
+  margin-bottom: 50px;
 }
 input{
   padding-left: 10px !important;
@@ -541,4 +543,11 @@ ebs-date-wrapper input{
 
 #textAreaNative:focus{
   background-color: white;
+}
+
+.r-backgroundColor-16it7h5,#confirmModal {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 999;
+    
 }
