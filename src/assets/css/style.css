@@ -63,7 +63,7 @@ button {
 }
 .leftContainer .viewpointLogo {
   max-width: 252px;
-  margin-bottom: 30px;
+  padding-bottom:30px;
 }
 .leftContainer .heading {
   text-transform: uppercase;
@@ -332,20 +332,37 @@ button {
 /* media screen mobile responsive */
 @media  screen and (max-width:767px) {
   .viewpoint {
-    flex-direction: column;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 50px 0;
+  }
+  .survey_listing{
+  overflow:'hidden';
+  max-height:'550px';
   }
   .leftContainer {
     width: 90%;
     padding: 20px;
     min-height: 300px;
-    margin-top: 500px;
+    max-height: 350px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
-
+.second_para{
+  margin-bottom:0 !important; 
+} 
 .rightContainer {
   width: 90%;
   padding: 20px;
-  margin-bottom: 50px;
+  /* align-items: center; */
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+
 }
+
 input{
   padding-left: 10px !important;
   padding-right: 10px !important;
@@ -382,7 +399,9 @@ input{
   word-break: break-word;
   text-align: center;
 }
-
+.leftContainer .heading {
+  font-size: 28px;
+}
 }
 /* survey */
 .survey_list_container{
@@ -390,6 +409,7 @@ input{
  flex-direction: column;
  gap: 8px;
  padding-right: 10px;
+ width: 100%;
 }
 .survey_list_container .survey_list_item{
   cursor: pointer;
@@ -403,6 +423,7 @@ input{
   align-items: center;
   font-size: 16px;
   font-weight: bold;
+  width: 100%;
 
 }
 .survey_list_container .survey_list_item h4{
@@ -545,9 +566,11 @@ ebs-date-wrapper input{
   background-color: white;
 }
 
-.r-backgroundColor-16it7h5,#confirmModal {
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.5);
+.r-backgroundColor-16it7h5,#confirmModal,#modalHeader {
+  background: #FFFFFF;
+opacity: 1;
+backdrop-filter: blur(9px);
+-webkit-backdrop-filter: blur(9px);
   z-index: 999;
     
 }

@@ -27,7 +27,7 @@ const SingleAnswer = ({ question, formData, updateFormData, error, labels }: Pro
   };
   const remainingChars = maxChars - text.length;
   return (
-    <View  width="100%" mb="0">
+    <View  width="100%" mb="0" pb={3}>
       <Box mb="3"  width={'100%'} >
         <Text fontWeight="600" mb="3" maxW="80%" fontSize="md">{Number(question?.required_question) === 1 && <Text display={Platform.OS === 'web' ? "inline" : 'flex'} color="red.500">*</Text>} {question?.value} what do u know about this website?</Text>
         {/* <Divider mb="5" opacity={0.27} bg="primary.text" /> */}

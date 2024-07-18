@@ -33,7 +33,7 @@ export const Provider = () => {
       if (eventId !== undefined && _env.api_base_url) {
           FetchEvent(eventId as string)
       }
-      if(window.location.href==`http://localhost:19006/${event.url}`){
+      if(window.location.href==`http://localhost:19006/${event.url}` || window.location.href==`http://192.168.13.166:19006/${event.url}`){
         window.location.replace(`http://localhost:19006/${event.url}/login`)
       }else if(window.location.href==`http://localhost:19006/`){
         window.location.replace(`http://localhost:19006/${event.url}`)
