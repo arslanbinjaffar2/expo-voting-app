@@ -20,20 +20,20 @@ export const CustomModal = ({ modalVisible, setModalVisible,content,type,title,h
                     height={['90%', '100%']}
                     nativeID='confirmModal'
                     pt={['20px','40px']}
-                    pb={['20px','60px']}
+                    pb={['20px','50px']}
                 >
                     <Modal.Header py={0} borderBottomWidth={2} borderBottomColor={'rgba(173, 173, 173,0.3)'} nativeID='confirmModal'  flexDirection={'row'}
-                        justifyContent={'space-between'} alignItems={'center'} px={['20px','60px']} pb={['10px','18px']}
+                        justifyContent={'space-between'} alignItems={'center'} px={['20px','50px']} pb={['10px','18px']}
                     >
                         <Text color='#1D9FE4' fontSize='28px' fontWeight="bold">{title}</Text>
                         <AntDesign name="close" size={24} color="#A39F9F" onPress={() => setModalVisible(false)} />
                     </Modal.Header>
-                    <Modal.Body fontSize={'lg'} px={['20px','60px']} py={0} pt={['20px','60px']} nativeID='confirmModal' _text={{ color: '#6E6E6E', fontSize: "24px", fontWeight: "medium" }}  justifyContent={'center'}
+                    <Modal.Body fontSize={'lg'} px={['20px','60px']} pb={3} pt={['20px','50px']} nativeID='confirmModal' _text={{ color: '#6E6E6E', fontSize: "24px", fontWeight: "medium" }}  justifyContent={'center'}
                         alignItems={'flex-start'}
                     >
                         {content}
                     </Modal.Body>
-                    <Modal.Footer borderTopWidth={0} nativeID='confirmModal' maxHeight={100} height={'100%'}  py={0} pt={['20px','60px']}>
+                    <Modal.Footer borderTopWidth={0} nativeID='confirmModal' maxHeight={100} height={'100%'}  py={0} pt={['20px','50px']}>
                         <Button.Group space={1}   justifyContent={'flex-start'}>
                             <Button
                                 _text={{ color: '#797979' }}
