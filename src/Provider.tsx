@@ -16,18 +16,19 @@ export const Provider = () => {
     const matchResult = currentUrl.match(/:(\d+)\/([^/]+)/);
     const eventId = matchResult ? matchResult[2] : null;
     const [InactiveModal,setInactiveModal]=useState(false)
+    const env={
+      enviroment: process.env.NODE_ENV || "development", // Updated to use process.env
+      api_base_url: process.env.APP_API_BASE_URL || "https://apidev.eventbuizz.com/mobile", // Updated to use process.env
+      eventcenter_base_url: process.env.APP_EVENTCENTER_BASE_URL || "https://dev.eventbuizz.com", // Updated to use process.env
+      socket_connection_server: process.env.APP_SOCKET_SERVER || "https://devsocket.eventbuizz.com:3000", // Unchanged
+      app_api_url: process.env.APP_API_GATEWAY_URL || "https://piy49faln0.execute-api.eu-west-1.amazonaws.com/Development", // Updated to use process.env
+      msw_enabled:process.env.APP_MSW_ENABLED === 'true' ? 'true' : 'false',  // Updated to use process.env
+      api_gateway_url: process.env.APP_API_GATEWAY_URL || "https://uut0ih5zqd.execute-api.eu-west-1.amazonaws.com/Development", // Unchanged
+      app_server_enviornment: process.env.APP_SERVER_ENVIRONMENT || "development", // Updated to use process.env
+      app_registration_url: "https://registration.url.com" // Unchanged
+    }
     useEffect(() => {
-    updateEnv({
-      enviroment: "development",
-      api_base_url: "https://apistage.eventbuizz.com/mobile",
-      eventcenter_base_url: "https://stage.eventbuizz.com",
-      socket_connection_server: "https://devsocket.eventbuizz.com:3000",
-      app_api_url: "https://piy49faln0.execute-api.eu-west-1.amazonaws.com/Development",
-      msw_enabled: '',
-      api_gateway_url: "https://uut0ih5zqd.execute-api.eu-west-1.amazonaws.com/Development",
-      app_server_enviornment: "development",
-      app_registration_url: "https://registration.url.com"
-    });
+    updateEnv({...env});
     }, [])
     useEffect(() => {
       if (eventId !== undefined && _env.api_base_url) {
