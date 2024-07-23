@@ -1,31 +1,28 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { logoIcon, nemIcon,successIcon } from '../../../../assets/img/index';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { Fragment, useEffect, useState } from 'react';
+import { logoIcon, nemIcon,successIcon } from '@assets/img/index';
 import { Box, Container, HStack, Icon, Spacer, Text, VStack, Divider, Button, Pressable, Image, Spinner, View, Modal } from 'native-base'
-import UseSurveyService from '../../../redux/store/services/useSurveyServices';
+import UseSurveyService from '@application/redux/store/services/useSurveyServices';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons'
 import AntDesign from '@expo/vector-icons/AntDesign'
-import {UseEventService} from '../../../redux/store/services/useEventServices';
-import UseLoadingService from '../../../redux/store/services/useLoadingServices';
-import UseEnvService from '../../../redux/store/services/useEnvServices';
-import UseAuthService from '../../../redux/store/services/useAuthServices';
-import { FormData } from '../../../models/survey/Detail';
-import { SubmittedQuestion } from '../../../models/survey/Survey';
-import MatrixAnswer from '../../atoms/surveys/questions/MatrixAnswer';
-import MultipleAnswer from '../../atoms/surveys/questions/MultipleAnswer';
-import SingleAnswer from '../../atoms/surveys/questions/SingleAnswer';
-import DropdownAnswer from '../../atoms/surveys/questions/DropdownAnswer';
-import OpenQuestionAnswer from '../../atoms/surveys/questions/OpenQuestionAnswer';
-import NumberAnswer from '../../atoms/surveys/questions/NumberAnswer';
-import WordCloudAnswer from '../../atoms/surveys/questions/WordCloudAnswer';
-import SectionLoading from '../../atoms/SectionLoading';
-import DateAnswer from '../../atoms/surveys/questions/DateAnswer';
-import DateTimeAnswer from '../../atoms/surveys/questions/DateTimeAnswer';
-import { CustomModal } from '../../atoms/surveys/customs/customModal';
-
+import {UseEventService} from '@application/redux/store/services/useEventServices';
+import UseLoadingService from '@application/redux/store/services/useLoadingServices';
+import UseEnvService from '@application/redux/store/services/useEnvServices';
+import UseAuthService from '@application/redux/store/services/useAuthServices';
+import { FormData } from '@application/models/survey/Detail';
+import { SubmittedQuestion } from '@application/models/survey/Survey';
+import MatrixAnswer from '@application/components/atoms/surveys/questions/MatrixAnswer';
+import MultipleAnswer from '@application/components/atoms/surveys/questions/MultipleAnswer';
+import SingleAnswer from '@application/components/atoms/surveys/questions/SingleAnswer';
+import DropdownAnswer from '@application/components/atoms/surveys/questions/DropdownAnswer';
+import OpenQuestionAnswer from '@application/components/atoms/surveys/questions/OpenQuestionAnswer';
+import NumberAnswer from '@application/components/atoms/surveys/questions/NumberAnswer';
+import WordCloudAnswer from '@application/components/atoms/surveys/questions/WordCloudAnswer';
+import SectionLoading from '@application/components/atoms/SectionLoading';
+import DateAnswer from '@application/components/atoms/surveys/questions/DateAnswer';
+import DateTimeAnswer from '@application/components/atoms/surveys/questions/DateTimeAnswer';
+import { CustomModal } from '@application/components/atoms/surveys/customs/customModal';
 const SurveyId = () => {
-
-
   return (
     <Fragment>
       <div className="viewpoint">

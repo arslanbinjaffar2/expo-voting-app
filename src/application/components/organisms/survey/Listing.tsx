@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect,  } from 'react';
 import { Link } from "react-router-native";
-import {arrowRightIcon,chevronIcon,crossIcon,logoIcon,nemIcon,successIcon} from '../../../../assets/img/index'
-import UseSurveyService from '../../../redux/store/services/useSurveyServices';
-import UseLoadingService from '../../../redux/store/services/useLoadingServices';
-import SectionLoading from '../../atoms/SectionLoading';
+import {arrowRightIcon,chevronIcon,crossIcon,logoIcon,nemIcon,successIcon} from '@assets/img/index'
+import UseSurveyService from '@redux/store/services/useSurveyServices';
+import UseLoadingService from '@redux/store/services/useLoadingServices';
+import SectionLoading from '@application/components/atoms/SectionLoading';
 import { Text, View } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 const ViewPoint = () => {

@@ -1,8 +1,8 @@
-import {timerAction  } from '../slices/timer.Slice'
+import {timerAction  } from '@redux/store/slices/timer.Slice'
 
-import { selectRemainTime } from '../slices/timer.Slice'
+import { selectRemainTime } from '@redux/store/slices/timer.Slice'
 
-import { useAppDispatch, useAppSelector } from '../Hooks'
+import { useAppDispatch, useAppSelector } from '@redux/store/Hooks'
 
 import { useCallback } from 'react'
 

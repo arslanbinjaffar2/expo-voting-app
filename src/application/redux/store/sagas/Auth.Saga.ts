@@ -2,15 +2,15 @@ import { SagaIterator } from '@redux-saga/core'
 
 import { call, put, takeEvery } from 'redux-saga/effects'
 
-import { getLoginApi } from '../api/Auth.Api';
+import { getLoginApi } from '@redux/store/api/Auth.Api';
 
-import { LoginPayload, AuthActions } from '../slices/Auth.Slice';
+import { LoginPayload, AuthActions } from '@redux/store/slices/Auth.Slice';
 
 
-import { HttpResponse } from '../../../utils/GeneralResponse'
+import { HttpResponse } from '@application/components/utils/GeneralResponse'
 
 import { select } from 'redux-saga/effects';
-import { LoadingActions } from '../slices/Loading.slice';
+import { LoadingActions } from '@redux/store/slices/Loading.Slice';
 
 // Worker Sagas handlers
 function* OnLogin({

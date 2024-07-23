@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams, Navigate } from 'react-router-dom';
-import UseAuthService from '../../application/redux/store/services/useAuthServices';
+import UseAuthService from '@application/redux/store/services/useAuthServices';
 
 const ProtectedRoute = ({ children }: any) => {
   const { isLoggedIn } = UseAuthService();

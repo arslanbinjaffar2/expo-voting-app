@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
-import { EnvActions, Env, EnvState } from '../slices/Env.Slice'
-import { useAppDispatch, useAppSelector } from '../Hooks'
+import { EnvActions, Env, EnvState } from '@redux/store/slices/Env.Slice'
+import { useAppDispatch, useAppSelector } from '@redux/store/Hooks'
 
 
 export type EnvServiceOperators = {

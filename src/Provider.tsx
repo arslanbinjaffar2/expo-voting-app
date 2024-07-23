@@ -4,9 +4,8 @@ import UseEnvServices from './application/redux/store/services/useEnvServices';
 import { ToastContainer } from 'react-toastify';
 import WebNavigation from './navigation/web/Navigator'
 import  './assets/css/style.css';
-
 import { ImageBackground, StyleSheet, View } from 'react-native';
-import NativeBaseProvider from './navigation/routes/NativeBaseProvider';
+import NativeBaseProvider from '@navigation/routes/NativeBaseProvider';
 import { Button, Modal, Text } from 'native-base';
 export const Provider = () => {
     const { FetchEvent,event} = UseEventService()

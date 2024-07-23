@@ -18,10 +18,23 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@api/*": ["./src/api/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@img/*":["./src/assets/img/*"],
+      "@navigation/*":["./src/navigation/*"],
+      "@components/*": ["./src/components/*"],
+      "@application/*": ["./src/application/*"],
+      "@scenes/*": ["./src/scenes/*"],
+      "@theme/*": ["./src/theme/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@screens/*":["./src/screens/*"],
+      "@redux/*":["./src/application/redux/*"]
+    }
   },
-  "include": [
-    "src"
-, "src/navigation/routes/ProtectedRoute.tsx"  ],
+  "include": ["src"],
   "extends": "expo/tsconfig.base"
 }

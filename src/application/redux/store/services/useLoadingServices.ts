@@ -1,9 +1,9 @@
-import { isLoading, scroll, processing } from '../slices/Loading.Slice'
+import { isLoading, scroll, processing } from '@redux/store/slices/Loading.Slice'
 
-import { LoadingActions } from '../slices/Loading.Slice'
+import { LoadingActions } from '@redux/store/slices/Loading.Slice'
 
-import { EventActions, SelectEvent } from '../slices/Event.Slice'
-import { useAppDispatch, useAppSelector } from '../Hooks'
+import { EventActions, SelectEvent } from '@redux/store/slices/Event.Slice'
+import { useAppDispatch, useAppSelector } from '@redux/store/Hooks'
 
 import { useCallback } from 'react'
 

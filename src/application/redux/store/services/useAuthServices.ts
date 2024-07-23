@@ -1,12 +1,12 @@
 import { useCallback } from 'react'
 
-import { AuthActions, LoginPayload, PasswordResetPayload, ChooseProviderPayload, ResetPayload, VerificationPayload, LoadProviderPayload, selectIsLoggedIn, isProcessing, response, error } from '../slices/Auth.Slice'
+import { AuthActions, LoginPayload, PasswordResetPayload, ChooseProviderPayload, ResetPayload, VerificationPayload, LoadProviderPayload, selectIsLoggedIn, isProcessing, response, error } from '@redux/store/slices/Auth.Slice'
 
 
 
 import {TestActions, SelectAlerts   } from '../slices/Test.Slice'
 import { useAppDispatch, useAppSelector } from '../Hooks'
-import { GeneralResponse } from '../../../components/utils/GeneralResponse'
+import { GeneralResponse } from '@application/components/utils/GeneralResponse'
 
 
 export type EventServiceOperators = {

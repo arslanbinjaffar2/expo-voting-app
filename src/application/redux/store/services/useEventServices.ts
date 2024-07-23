@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
-import { EventActions, Modules, SelectEvent, SelectEventUrl, SettingModules } from '../slices/Event.Slice'
-import { useAppDispatch, useAppSelector } from '../Hooks'
-import { Module, SettingModule } from '../../../models/Module'
-import {Event} from '../../../models/Event'
+import { EventActions, Modules, SelectEvent, SelectEventUrl, SettingModules } from '@redux/store/slices/Event.Slice'
+import { useAppDispatch, useAppSelector } from '@redux/store/Hooks'
+import { Module, SettingModule } from '@application/models/Module'
+import {Event} from '@application/models/Event'
 
 
 

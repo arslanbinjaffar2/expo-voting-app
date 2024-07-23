@@ -1,8 +1,8 @@
 import React from 'react';
 import { extendTheme, NativeBaseProvider as Provider } from 'native-base';
-import colors from '../../application/styles/colors'
+import colors from '@application/styles/colors'
 import { LinearGradient } from 'expo-linear-gradient';
-import ThemeColors from '../../application/styles/ThemeColors';
+import ThemeColors from '@application/styles/ThemeColors';
 const NativeBaseProvider = ({ children }: { children: React.ReactNode }) => {
     const config = {
         dependencies: {

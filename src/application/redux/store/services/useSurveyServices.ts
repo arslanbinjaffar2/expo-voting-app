@@ -2,11 +2,11 @@ import { useCallback } from 'react'
 
 import { SelectSurveys, SelectCompletedSurveys, SurveyActions, SelectSurveyLabelDetail, SelectSurveySubmitSuccess, SelectSurveyDetail, SelectMySurveyResult, SelectMySurveyResultDetail, SelectMySurveyResultScore, SelectSurveySettings, SelectMySurveyTotalScore } from '../slices/Survey.Slice'
 
-import { SurveyLabels, SurveySetting, SurveySubmitData, Surveys } from '../../../models/survey/Survey'
-import { SurveyDetail } from '../../../models/survey/Detail'
+import { SurveyLabels, SurveySetting, SurveySubmitData, Surveys } from '@application/models/survey/Survey'
+import { SurveyDetail } from '@application/models/survey/Detail'
 
-import { MySurveyResultSurvey } from '../../../models/survey/ResultDetail'
-import { useAppDispatch, useAppSelector } from '../Hooks'
+import { MySurveyResultSurvey } from '@application/models/survey/ResultDetail'
+import { useAppDispatch, useAppSelector } from '@redux/store/Hooks'
 
 export type SurveyServiceOperators = {
     surveys: Surveys,

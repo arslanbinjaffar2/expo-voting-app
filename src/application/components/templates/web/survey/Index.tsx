@@ -1,5 +1,5 @@
 import React from 'react'
-import Indextemplate from '../../../organisms/survey/Listing'
+import Indextemplate from '@application/components/organisms/survey/Listing'
 const Index = () => {
   return (
     <Indextemplate/>

@@ -2,17 +2,17 @@ import { SagaIterator } from '@redux-saga/core'
 
 import { call, put, takeEvery } from 'redux-saga/effects'
 
-import { getCheckVotingPermissionApi, getMySurveyResultApi, getMySurveyResultDetailApi, getSurveyApi, getSurveyDetailApi, submitSurveyApi } from '../api/Survey.Api'
+import { getCheckVotingPermissionApi, getMySurveyResultApi, getMySurveyResultDetailApi, getSurveyApi, getSurveyDetailApi, submitSurveyApi } from '@redux/store/api/Survey.Api'
 
-import { SurveyActions } from '../slices/Survey.Slice'
+import { SurveyActions } from '@redux/store/slices/Survey.Slice'
 
-import { LoadingActions } from '.././slices/Loading.Slice'
+import { LoadingActions } from '@redux/store/slices/Loading.Slice'
 
 
 import { select } from 'redux-saga/effects';
 
-import { SurveySubmitData } from '../../../models/survey/Survey'
-import { HttpResponse } from '../../../components/utils'
+import { SurveySubmitData } from '@application/models/survey/Survey'
+import { HttpResponse } from '@application/components/utils'
 // import { NotificationActions } from '../slices/Notification.Slice'
 
 function* OnFetchSurveys({

@@ -3,11 +3,11 @@ import { SagaIterator } from '@redux-saga/core'
 import { call, put, takeEvery } from 'redux-saga/effects'
 
 import { select } from 'redux-saga/effects';
-import { EventActions } from '../slices/Event.Slice';
+import { EventActions } from '@redux/store/slices/Event.Slice';
 import { fetchEventApi, getEventApi, getEventByCodeApi, getModulesApi, getSettingModulesApi } from '../api/Event.Api';
-import { LoadingActions } from '../slices/Loading.Slice';
-import { AuthActions } from '../slices/Auth.Slice';
-import { HttpResponse } from '../../../components/utils';
+import { LoadingActions } from '@redux/store/slices/Loading.Slice';
+import { AuthActions } from '@redux/store/slices/Auth.Slice';
+import { HttpResponse } from '@application/components/utils';
 
 function* OnGetEvent({
     payload,

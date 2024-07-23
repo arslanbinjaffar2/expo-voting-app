@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {arrowRightIcon,chevronIcon,crossIcon,logoIcon,nemIcon,successIcon} from '../../../../../assets/img/index'
+import {arrowRightIcon,chevronIcon,crossIcon,logoIcon,nemIcon,successIcon} from '@assets/img/index'
 import {Navigate, useNavigate, useParams} from 'react-router-dom'
 import in_array from 'in_array'
 import {DotLoader} from 'react-spinners'
-import UseLoadingService from '../../../../redux/store/services/useLoadingServices';
-import useAuthServices from '../../../../redux/store/services/useAuthServices';
+import UseLoadingService from '@redux/store/services/useLoadingServices';
+import useAuthServices from '@redux/store/services/useAuthServices';
 
 const ViewPoint = () => {
   const navigate=useNavigate()
