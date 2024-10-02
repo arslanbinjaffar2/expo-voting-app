@@ -7,7 +7,10 @@ import  './assets/css/style.css';
 import { ImageBackground, StyleSheet, View } from 'react-native';
 import NativeBaseProvider from '@navigation/routes/NativeBaseProvider';
 import { Button, Modal, Text } from 'native-base';
+import Constants from 'expo-constants';
 export const Provider = () => {
+  const universalLinks = Constants.manifest?.extra?.universalLinks
+  console.log(universalLinks,"universal links")
     const { FetchEvent,event} = UseEventService()
     const {  _env } = UseEnvServices()
     const { updateEnv } = UseEnvServices()
@@ -16,15 +19,15 @@ export const Provider = () => {
     const eventId = matchResult ? matchResult[2] : null;
     const [InactiveModal,setInactiveModal]=useState(false)
     const env={
-      enviroment: process.env.NODE_ENV || "development", // Updated to use process.env
-      api_base_url: process.env.APP_API_BASE_URL || "https://apidev.eventbuizz.com/mobile", // Updated to use process.env
-      eventcenter_base_url: process.env.APP_EVENTCENTER_BASE_URL || "https://dev.eventbuizz.com", // Updated to use process.env
-      socket_connection_server: process.env.APP_SOCKET_SERVER || "https://devsocket.eventbuizz.com:3000", // Unchanged
-      app_api_url: process.env.APP_API_GATEWAY_URL || "https://piy49faln0.execute-api.eu-west-1.amazonaws.com/Development", // Updated to use process.env
-      msw_enabled:process.env.APP_MSW_ENABLED === 'true' ? 'true' : 'false',  // Updated to use process.env
-      api_gateway_url: process.env.APP_API_GATEWAY_URL || "https://uut0ih5zqd.execute-api.eu-west-1.amazonaws.com/Development", // Unchanged
-      app_server_enviornment: process.env.APP_SERVER_ENVIRONMENT || "development", // Updated to use process.env
-      app_registration_url: "https://registration.url.com" // Unchanged
+      enviroment:universalLinks[0], // Updated to use process.env
+      api_base_url: universalLinks[1], // Updated to use process.env
+      eventcenter_base_url: universalLinks[2] , // Updated to use process.env
+      socket_connection_server: universalLinks[3] , // Unchanged
+      app_api_url:universalLinks[4] , // Updated to use process.env
+      msw_enabled:universalLinks[5],  // Updated to use process.env
+      api_gateway_url: universalLinks[4], // Unchanged
+      app_server_enviornment: universalLinks[6] , // Updated to use process.env
+      app_registration_url: universalLinks[7] // Unchanged
     }
     useEffect(() => {
     updateEnv({...env});
